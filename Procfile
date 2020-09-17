@@ -1,0 +1,1 @@
+web: gunicorn CivicConnectSiteF20.wsgi
