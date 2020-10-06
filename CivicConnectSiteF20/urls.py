@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from CivicConnect import views
-from django.views.generic import TemplateView
+from django.shortcuts import redirect
 
 urlpatterns = [
+    path('', lambda req: redirect('/CivicConnect/')),
     path('CivicConnect/', include('CivicConnect.urls')),
     path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
