@@ -11,6 +11,9 @@ Login to Civic Connect
     <body>
     {% if user.is_authenticated %}
     <p style="text-align:center;">Welcome, {{ user.username }} !</p>
+    <div style="text-align:center;">
+      <a href="{% provider_login_url 'google' %}">Login with Google</a>
+    </div>
 
     {% else %}
     <div style="text-align:center;">
