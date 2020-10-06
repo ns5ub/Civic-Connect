@@ -1,0 +1,26 @@
+{% extends 'CivicConnect/bootstrap.html' %}
+
+{% load bootstrap4 %}
+
+{% block bootstrap4_content %}
+<body>
+<div class="container">
+
+    {% if user.is_authenticated %}
+        <span style="float:right">Logged in as: {{ user.username }}</span><br>
+    {% endif %}
+    <p>
+        <h4 style="text-align:center;"><a href="{% url 'CivicConnect:home' %}" style="margin-right: 5px;"> Home </a>|
+    <a href="{% url 'CivicConnect:index' %}" style="margin-right: 5px;"> Login </a></h4>
+
+    </p>
+    <h1 style="text-align:center;">{% block title %}(no title){% endblock %}</h1>
+</div>
+
+{% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+
+{% block content %}(no content){% endblock %}
+
+{% endblock %}
+</body>
+

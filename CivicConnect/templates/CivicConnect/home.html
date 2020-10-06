@@ -1,0 +1,25 @@
+{% extends 'CivicConnect/base.html' %}
+
+{% load bootstrap4 %}
+
+{% block title %}
+Login to Civic Connect
+{% endblock %}
+
+{% block content %}
+  {% load socialaccount %}
+    <body>
+    {% if user.is_authenticated %}
+    <p style="text-align:center;">Welcome, {{ user.username }} !</p>
+
+    {% else %}
+    <div style="text-align:center;">
+      <a href="{% provider_login_url 'google' %}">Login with Google</a>
+    </div>
+
+    {% endif %}
+    </body>
+
+
+
+{% endblock %}
