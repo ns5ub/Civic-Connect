@@ -1,0 +1,12 @@
+language: python
+python:
+- '3.8'
+install:
+- pip3 install -r requirements.txt
+deploy:
+  provider: heroku
+  api_key:
+    secure: MbKXamrcavFOsijRqZAxaTak63gN++qNhtEwhCfvQPw5ccnEeqQUbRnv3tTD/yHALWJsr9RXI/xPTZs48z13MSbukJAs5YdpkpxKzCNK5ucdcpAyrX/8vqR90q6QYN5A7PNYW/yGkYTKp1XKTvwi8IpWeeOiJvH8a1waN3Vfm6J6EcxElsrjXQ54l4TI2sl5pxoEU9Tq8JPaueVj09A+Al2nynXw7uPbPm65kykrVwkGYLEqnIcAq7b5J6/ExHgg1uvOL4kVn/ht1/okfHFXcHYpxn7YhkzmQ9rs/6o4YoQrlXL+PzN2FqC6+nvogOUOajufxQGpnYeMzg4jByv3U5O0plGSVAX9qaIx7y4nYTVHMNukCJ8IHNW0NZKwLNRRhWrsGvBqoKoBiMroYuOo4V9PmMCFvJzP+m1yrTjYU466RC86lhd5taDyQrbbRI7Oyk3iz8aBVdGbsV4RYYpWoBzLtDy42VAwihhIoJ9qeonr3gDC/tcDU32FTAGfud/S+xfwi7obCLTJiZ12pdN+0CnNzn2YemiEaTvbY2bBr/c+e93YCXJwvhl6/BMksaP4zW6J0s2XRArS00vALMN/vmVjtKGOZv9xiPWFw/40lhHghJWv8LLO5/eYbh0GgdwtIeXT09/d6dQgazfj8/dXRnRxQ57fkEP94BwY31bl8OU=
+  app: civic-connect-bears
+  on:
+    repo: uva-cs3240-f20/project-1-15
