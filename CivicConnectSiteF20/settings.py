@@ -10,7 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
-import os, django_on_heroku
+import os
+
+found = True
+try:
+    # activate django-heroku
+    import django_on_heroku
+    django_on_heroku.settings(locals())
+except ImportError:
+    found = False
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -142,8 +150,7 @@ os.makedirs(STATIC_TMP, exist_ok=True)
 os.makedirs(STATIC_ROOT, exist_ok=True)
 
 
-# activate django-heroku
-django_on_heroku.settings(locals())
+
 
 
 AUTHENTICATION_BACKENDS = (
