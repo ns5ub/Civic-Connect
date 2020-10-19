@@ -12,14 +12,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
-found = True
-try:
-    # activate django-heroku
-    import django_on_heroku
-    django_on_heroku.settings(locals())
-except ImportError:
-    found = False
-
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -172,3 +164,11 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+found = True
+try:
+    # activate django-heroku
+    import django_on_heroku
+    django_on_heroku.settings(locals())
+except ImportError:
+    found = False
