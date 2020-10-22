@@ -1,0 +1,33 @@
+{% extends 'CivicConnect/base.html' %}
+
+{% load bootstrap4 %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block content %}
+  {% load socialaccount %}
+    <body>
+    {% if user.is_authenticated %}
+    <p style="text-align:center;">Welcome, {{ user.username }} !</p>
+    <div style="text-align:center;">
+      <a href="{% url 'CivicConnect:logout' %}" style="margin-right: 5px;"> Logout! </a>
+        <form method="post">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+            <button type="submit">Save changes</button>
+        </form>
+    </div>
+    {% else %}
+    <div style="text-align:center;">
+      <a href="{% provider_login_url 'google' %}">Login with Google</a>
+    </div>
+
+    {% endif %}
+    </body>
+
+
+
+{% endblock %}
