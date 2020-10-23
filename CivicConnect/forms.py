@@ -41,7 +41,8 @@ class CreateProfile(UserCreationForm):
             'first_name',
             'last_name',
             'email',
-            'password',
+            'password1',
+            'password2',
             'user_interests',
         )
 
