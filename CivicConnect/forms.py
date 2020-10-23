@@ -14,10 +14,10 @@ class UserForm(forms.ModelForm):
 
 
 class ProfileForm(forms.ModelForm):
-    user_interests = forms.MultipleChoiceField(choices=interests, required=True)
+    #user_interests = forms.MultipleChoiceField(choices=interests, required=True)
     class Meta:
         model = Profile
-        fields = ('bio', 'address')
+        fields = ('bio', 'address', 'interests')
 
 
 class CreateProfile(UserCreationForm):
