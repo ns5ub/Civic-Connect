@@ -5,13 +5,19 @@
 {% block bootstrap4_content %}
 <body>
 <div class="container">
-
+    {% load socialaccount %}
     {% if user.is_authenticated %}
-        <span style="float:right">Logged in as: {{ user.username }}</span><br>
+    <span style="float:right"> <a href="{% url 'CivicConnect:profile' %}" style="margin-right: 5px;">Logged in as: {{ user.username }} </a></span><br>
     {% endif %}
     <p>
-        <h4 style="text-align:center;"><a href="{% url 'CivicConnect:home' %}" style="margin-right: 5px;"> Home </a>|
-    <a href="{% url 'CivicConnect:index' %}" style="margin-right: 5px;"> Login </a></h4>
+        <h4 style="text-align:center;">
+            <a href="{% url 'CivicConnect:home' %}" style="margin-right: 5px;"> Home </a> |
+            {% if user.is_authenticated %}
+                <a href="{% url 'CivicConnect:logout' %}" style="margin-right: 5px;"> Logout </a>
+            {% else %}
+                <a href="{% provider_login_url 'google' %}" style="margin-right: 5px;"> Login </a>
+            {% endif %}
+        </h4>
 
     </p>
     <h1 style="text-align:center;">{% block title %}(no title){% endblock %}</h1>

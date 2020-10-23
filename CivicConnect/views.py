@@ -11,38 +11,38 @@ from . import forms
 # Create your views here.
 from django.views.generic import CreateView
 
-from CivicConnect.forms import UserForm, ProfileForm, CreateProfile
+from CivicConnect.forms import UserForm, ProfileForm #, CreateProfile
 from CivicConnect.models import Profile
 
 
 def home(request):
-    if request.user.is_authenticated:
-        try:
-            profile = request.user.profile
-        except Profile.DoesNotExist:
-            profile = Profile(user=request.user)
-            profile.save()
     return render(request, 'CivicConnect/home.html')
 
+
 def index(request):
-    if request.user.is_authenticated:
-        try:
-            profile = request.user.profile
-        except Profile.DoesNotExist:
-            profile = Profile(user=request.user)
-            profile.save()
     return render(request, 'CivicConnect/index.html')
 
+
+def profile(request):
+    return render(request, 'CivicConnect/profile.html')
+
+
 def logout_request(request):
-    if request.user.is_authenticated:
+    '''if request.user.is_authenticated:
         try:
             profile = request.user.profile
         except Profile.DoesNotExist:
             profile = Profile(user=request.user)
-            profile.save()
+            profile.save()'''
     logout(request)
     messages.info(request, "Logged out successfully!")
     return redirect("CivicConnect:home")
+
+
+@login_required
+def profile(request):
+    return render(request, 'CivicConnect/profile.html')
+
 
 @login_required
 def update_profile(request):
@@ -51,6 +51,7 @@ def update_profile(request):
     except Profile.DoesNotExist:
         profile = Profile(user=request.user)
         profile.save()
+
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, instance=request.user.profile)
@@ -63,12 +64,13 @@ def update_profile(request):
     else:
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=request.user.profile)
-    return render(request, 'CivicConnect/profile.html', {
+    return render(request, 'CivicConnect/edit_profile.html', {
         'user_form': user_form,
         'profile_form': profile_form
     })
 
-def signup(request):
+'''
+    def signup(request):
     if request.method == 'POST':
         form = CreateProfile(request.POST)
         if form.is_valid():
@@ -81,3 +83,4 @@ def signup(request):
     else:
         form = CreateProfile()
     return render(request, 'CivicConnect/add_user.html', {'form': form})
+'''
