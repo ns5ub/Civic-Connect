@@ -3,17 +3,21 @@
 {% load bootstrap4 %}
 
 {% block title %}
-Profile
+Profile Settings!
 {% endblock %}
 
 {% block content %}
   {% load socialaccount %}
     <body>
     {% if user.is_authenticated %}
-    <p style="text-align:center;">Welcome, {{ user.first_name }} !</p>
+    <p style="text-align:center;">Profile: {{ user.first_name }} {{ user.last_name }} !</p>
     <div style="text-align:center;">
-        <p style="text-align:center;">{{ user.profile.bio }}</p>
-        <a href="{% url 'CivicConnect:edit_profile' %}">Edit Profile!</a>
+        <form method="post">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+            <button type="submit" href="{% url 'CivicConnect:profile' %}">Save changes</button>
+        </form>
     </div>
     {% else %}
     <div style="text-align:center;">

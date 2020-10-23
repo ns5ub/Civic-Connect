@@ -1,8 +1,10 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import  User
+from django.contrib.auth.models import User
 from CivicConnect.models import Profile
 
+## interests for users to choose from ##
+interests = [(1, "Cybersecurity"), (2, "Police Brutality")]
 
 
 class UserForm(forms.ModelForm):
@@ -12,10 +14,12 @@ class UserForm(forms.ModelForm):
 
 
 class ProfileForm(forms.ModelForm):
+    user_interests = forms.MultipleChoiceField(choices=interests, required=True)
     class Meta:
         model = Profile
         fields = ('bio', 'address')
 
+'''
 ## interests for users to choose from ##
 interests = [(1, "Cybersecurity"), (2, "Police Brutality")]
 
@@ -45,3 +49,4 @@ class CreateProfile(UserCreationForm) :
         ]
 
     required_css_class = "bootstrap4-req"
+'''
