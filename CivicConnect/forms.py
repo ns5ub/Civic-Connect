@@ -4,6 +4,9 @@ from django.contrib.auth.models import  User
 from CivicConnect.models import Profile
 
 
+## interests for users to choose from ##
+interests = [(1, "Cybersecurity"), (2, "Police Brutality")]
+
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -12,12 +15,11 @@ class UserForm(forms.ModelForm):
 
 
 class ProfileForm(forms.ModelForm):
+    user_interests = forms.MultipleChoiceField(choices=interests, required=True)
     class Meta:
         model = Profile
         fields = ('bio', 'address')
 
-## interests for users to choose from ##
-interests = [(1, "Cybersecurity"), (2, "Police Brutality")]
 
 class CreateProfile(UserCreationForm) :
 
@@ -35,13 +37,13 @@ class CreateProfile(UserCreationForm) :
     """ Collect relevant user metadata """
     class Meta:
         model = User
-        fields = [
+        fields = (
             'username',
             'first_name',
             'last_name',
             'email',
             'password',
             'user_interests',
-        ]
+        )
 
     required_css_class = "bootstrap4-req"
