@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import  User
 from CivicConnect.models import Profile
 
@@ -16,12 +17,11 @@ class ProfileForm(forms.ModelForm):
         fields = ('bio', 'address')
 
 ## interests for users to choose from ##
-interests = ["Cybersecurity", "Police Brutality"]
-class CreateProfile(forms.ModelForm) :
+interests = [(1, "Cybersecurity"), (2, "Police Brutality")]
 
-    """ Password creation and validation """
-    password = forms.CharField(widget=forms.PasswordInput)  # ask for password, special widget for a bit more security
-    validate_password = forms.CharField(widget=forms.PasswordInput)  # re-enter password for authentication
+class CreateProfile(UserCreationForm) :
+
+    #username = forms.CharField(max_length=25)
 
     """ Interest selection """
     user_interests = forms.MultipleChoiceField(choices=interests, required=True)
@@ -43,3 +43,5 @@ class CreateProfile(forms.ModelForm) :
             'password',
             'user_interests',
         ]
+
+    required_css_class = "bootstrap4-req"

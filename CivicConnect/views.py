@@ -1,10 +1,17 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.contrib.auth import logout
+from django.contrib.auth import login, logout, authenticate
+from django.contrib import messages
+from django.urls import reverse_lazy
+
+from . import forms
 
 # Create your views here.
-from CivicConnect.forms import UserForm, ProfileForm
+from django.views.generic import CreateView
+
+from CivicConnect.forms import UserForm, ProfileForm, CreateProfile
 from CivicConnect.models import Profile
 
 
@@ -60,3 +67,17 @@ def update_profile(request):
         'user_form': user_form,
         'profile_form': profile_form
     })
+
+def signup(request):
+    if request.method == 'POST':
+        form = CreateProfile(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('CivicConnect:home')
+    else:
+        form = CreateProfile()
+    return render(request, 'CivicConnect/add_user.html', {'form': form})

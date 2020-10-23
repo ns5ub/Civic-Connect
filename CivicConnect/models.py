@@ -9,6 +9,9 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)
     address = models.CharField(max_length=30, blank=True)
+    dob = models.DateField(null=True, blank=True)
+    #username = models.CharField(max_length=25, blank=True)
+
 '''
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
