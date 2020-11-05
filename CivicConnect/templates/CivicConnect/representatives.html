@@ -1,6 +1,7 @@
 {% extends 'CivicConnect/base.html' %}
 
 {% load bootstrap4 %}
+{% load index %}
 
 {% block title %}
 Get your Representatives
@@ -12,7 +13,7 @@ Get your Representatives
         <h3>Federal</h3>
         {% for office in country_representatives.offices %}
             {% for i in office.officialIndices %}
-                <h4>{{ country_representatives.officials.i }} </h4>
+                <h4>{{ country_representatives.officials|index:i }} </h4>
                 <h5>{{ office.name }}</h5>
             {% endfor %}
         {% endfor %}
