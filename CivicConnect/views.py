@@ -1,3 +1,5 @@
+import requests
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -84,3 +86,31 @@ def update_profile(request):
         form = CreateProfile()
     return render(request, 'CivicConnect/add_user.html', {'form': form})
 '''
+
+@login_required
+def representatives(request):
+    endpoint = 'https://www.googleapis.com/civicinfo/v2/representatives'
+    querystring_country = {"key": settings.GOOGLE_CIVIC_API_KEY,  # API key I setup in the Google Developer's Console
+                           "address": request.user.profile.address,
+                           "includeOffices": "true",  # Includes offices in addition to officials, can set false
+                           "levels": "Country",  # Sample level of government
+                           }
+
+    querystring_regional = {"key": settings.GOOGLE_CIVIC_API_KEY,  # API key I setup in the Google Developer's Console
+                            "address": request.user.profile.address,
+                            "includeOffices": "true",  # Includes offices in addition to officials, can set false
+                            "levels": "regional",  # Sample level of government
+                            }
+    querystring_adminarea1 = {"key": settings.GOOGLE_CIVIC_API_KEY,  # API key I setup in the Google Developer's Console
+                              "address": request.user.profile.address,
+                              "includeOffices": "true",  # Includes offices in addition to officials, can set false
+                              "levels": "administrativeArea1",  # Sample level of government
+                              }
+
+    country_reps = requests.request("GET", endpoint, params=querystring_country).json();
+    regional_reps = requests.request("GET", endpoint, params=querystring_regional).json();
+    adminarea_reps = requests.request("GET", endpoint, params=querystring_adminarea1).json();
+    return render(request, 'CivicConnect/representatives.html', {'country_representatives': country_reps,
+                                                                 'regional_representatives': regional_reps,
+                                                                 'administrative_representatives': adminarea_reps})
+

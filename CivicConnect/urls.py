@@ -11,6 +11,7 @@ urlpatterns = [
     path("logout/", views.logout_request, name="logout"),
     path("profile/", views.profile, name="profile"),
     path("edit_profile/", views.update_profile, name="edit_profile"),
+    path('representatives/', views.representatives, name='representatives'),
     #path("add_user/", views.signup, name="add_user"),
     #path('accounts/', include('allauth.urls')),
 ]

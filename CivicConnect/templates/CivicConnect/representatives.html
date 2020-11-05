@@ -1,0 +1,21 @@
+{% extends 'CivicConnect/base.html' %}
+
+{% load bootstrap4 %}
+
+{% block title %}
+Get your Representatives
+{% endblock %}
+
+{% block content %}
+  {% load socialaccount %}
+    <body>
+        <h3>Federal</h3>
+        {% for office in country_representatives.offices %}
+            {% for i in office.officialIndices %}
+                <h4>{{ country_representatives.officials.i }} </h4>
+                <h5>{{ office.name }}</h5>
+            {% endfor %}
+        {% endfor %}
+    </body>
+
+{% endblock %}

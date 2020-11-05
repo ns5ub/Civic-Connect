@@ -2,3 +2,4 @@ Django
 gunicorn
 django-bootstrap4
 django-allauth
+python-decouple

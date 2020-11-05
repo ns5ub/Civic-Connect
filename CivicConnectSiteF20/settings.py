@@ -164,6 +164,8 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+from decouple import config
+GOOGLE_CIVIC_API_KEY = config('GOOGLE_CIVIC_API_KEY', default='')
 
 found = True
 try:
