@@ -15,7 +15,7 @@ Profile Settings
     {% if user.is_authenticated %}
     <p style="text-align:center;">Profile: {{ user.first_name }} {{ user.last_name }} !</p>
     <div style="text-align:center; margin-right:300px; margin-left:300px; align:center;">
-        <form method="post" action="{% url 'CivicConnect:profile' %}">
+        <form method="post">
             {% csrf_token %}
             {% crispy user_form %}
             {% crispy profile_form %}
