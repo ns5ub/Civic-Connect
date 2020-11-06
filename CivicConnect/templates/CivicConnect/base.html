@@ -7,9 +7,20 @@
 <div class="container">
     {% load socialaccount %}
     {% if user.is_authenticated %}
-    <span style="float:right"> <a href="{% url 'CivicConnect:profile' %}" style="margin-right: 5px;">Logged in as: {{ user.username }} </a></span><br>
+    <span style="float:right"> <a href="{% url 'CivicConnect:profile' %}" style="margin-right: 5px;">Logged in: {{ user.username }} </a></span><br>
     {% endif %}
     <p>
+    <style>
+    .setCenter {
+    margin:auto;
+    width:90%;
+    height:auto;
+    border:3px solid #000;
+    color: black;
+    background: gainsboro;
+    }
+    </style>
+    <div class="setCenter">
         <h4 style="text-align:center;">
             <a href="{% url 'CivicConnect:home' %}" style="margin-right: 5px;"> Home </a> |
             {% if user.is_authenticated %}
@@ -19,10 +30,11 @@
                 <a href="{% provider_login_url 'google' %}" style="margin-right: 5px;"> Login </a>
             {% endif %}
         </h4>
-
+    </div>
     </p>
     <h1 style="text-align:center;">{% block title %}(no title){% endblock %}</h1>
 </div>
+
 
 {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
 
