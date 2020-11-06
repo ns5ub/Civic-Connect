@@ -1,9 +1,12 @@
 {% extends 'CivicConnect/base.html' %}
 
+{% load crispy_forms_tags %}
+{%
+
 {% load bootstrap4 %}
 
 {% block title %}
-Profile Settings!
+Profile Settings
 {% endblock %}
 
 {% block content %}
@@ -11,12 +14,12 @@ Profile Settings!
     <body>
     {% if user.is_authenticated %}
     <p style="text-align:center;">Profile: {{ user.first_name }} {{ user.last_name }} !</p>
-    <div style="text-align:center;">
-        <form method="post">
+    <div style="text-align:center; margin-right:300px; margin-left:300px; align:center;">
+        <form method="post" action="{% url 'CivicConnect:profile' %}">
             {% csrf_token %}
-            {{ user_form.as_p }}
-            {{ profile_form.as_p }}
-            <button type="submit" href="{% url 'CivicConnect:profile' %}">Save changes</button>
+            {% crispy user_form %}
+            {% crispy profile_form %}
+            {% buttons submit="Submit" reset="Cancel" %}{% endbuttons %}
         </form>
     </div>
     {% else %}

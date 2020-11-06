@@ -46,7 +46,12 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+<<<<<<< HEAD
     'multiselectfield',
+=======
+
+    'crispy_forms',
+>>>>>>> master
 ]
 
 MIDDLEWARE = [
@@ -76,6 +81,8 @@ TEMPLATES = [
         },
     },
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 WSGI_APPLICATION = 'CivicConnectSiteF20.wsgi.application'
 
