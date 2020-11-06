@@ -12,7 +12,7 @@ from . import forms
 from django.views.generic import CreateView
 
 from CivicConnect.forms import UserForm, ProfileForm #, CreateProfile
-from CivicConnect.models import Profile
+from CivicConnect.models import Profile, TemplateSubmission
 
 
 def home(request):
@@ -84,3 +84,20 @@ def update_profile(request):
         form = CreateProfile()
     return render(request, 'CivicConnect/add_user.html', {'form': form})
 '''
+
+def templatesubmission(request):
+    if request.method == 'POST':
+        topic = request.POST.get('topic')
+        template = request.POST.get('template')
+        submission_obj = TemplateSubmission(topic=topic, template=template)
+        submission_obj.save()
+    t = TemplateSubmission.objects.all()
+    return render(request, 'CivicConnect/templatesubmission.html', {'template': t})
+
+
+def templates(request):
+       temps = TemplateSubmission.objects.all()
+       return render(request, 'CivicConnect/templates.html', {'template': temps})
+
+
+

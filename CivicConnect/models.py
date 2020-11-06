@@ -3,7 +3,9 @@ from django.contrib.auth.models import User
 # Create your models here.
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from multiselectfield import MultiSelectField
 
+interests = [('1', "Cybersecurity"), ('2', "Police Brutality")]
 
 class Interest(models.Model):
     description = models.CharField(max_length=300)
@@ -26,3 +28,9 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
+
+class TemplateSubmission(models.Model):
+    topic = MultiSelectField(choices=interests, max_choices=3)
+    template = models.CharField(max_length=5000, default="Write Template Here")
+    def __str__(self):
+        return self.template

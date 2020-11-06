@@ -1,0 +1,31 @@
+<div class="head">
+<div class="text-center">
+	<h1 class="text-center"><small> Submit your Template Here:</small></h1
+</div>
+</div>
+
+
+<div class="body">
+<form action="{% url 'CivicConnect:templatesubmission' %}" method="post">  
+{% csrf_token %}
+	<g class="text-uppercase text-center">
+	
+	<u> Topic: </u> 
+	<br>
+	
+	</g>
+	
+
+	<input type="text" name="topic"><br>
+	
+	<a class="text-uppercase text-center">
+		
+	<u> Template: </u> 
+	<br>
+		
+	</a>
+		
+	<textarea class = "form-control" rows="20" cols = "20" name ="template"></textarea>
+	<input type="submit" value="Submit"> 
+</form> 
+</div>

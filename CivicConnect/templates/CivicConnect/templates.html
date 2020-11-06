@@ -1,0 +1,20 @@
+{% extends 'CivicConnect/base.html' %}
+{% block content %}
+
+<div class="text-center">
+	<h1> List of Available Templates </h1>
+</div>
+
+
+<ul>
+{% for t in template %}
+<div class="text-center">
+<li><b>Topic </b>{{ t.topic }} <br></div>
+<u><b>Template: </b> <br> {{ t.template }} </u>  </li>	
+{% endfor %}
+</ul>
+
+</div>
+
+{% endblock content %}
+                         
