@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from CivicConnect.models import Profile
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Submit, Row, Column
 
 ## interests for users to choose from ##
 interests = [(1, "Cybersecurity"), (2, "Police Brutality")]
@@ -12,12 +14,42 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('first_name', 'last_name', 'email')
 
+    required_css_class = 'bootstrap4-req'
+    use_required_attribute = False
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_id = 'id-UserForm'
+        self.helper.layout = Layout (
+            Row (
+                Column ('first_name', css_class='form-group col-md-6 mb-0'),
+                Column ('last_name', css_class='form-group col-md-6 mb-0'),
+                css_class='form-row'
+            ),
+            'email'
+        )
+        self.helper.form_tag = False
+
 
 class ProfileForm(forms.ModelForm):
     #user_interests = forms.MultipleChoiceField(choices=interests, required=True)
     class Meta:
         model = Profile
         fields = ('bio', 'address', 'interests')
+    required_css_class = 'bootstrap4-req'
+    use_required_attribute = False
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_id = 'id-ProfileForm'
+        self.helper.layout = Layout (
+            'bio',
+            'address',
+            'interests'
+        )
+        self.helper.form_tag = False
 
 
 class CreateProfile(UserCreationForm):

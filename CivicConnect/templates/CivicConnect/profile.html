@@ -10,7 +10,7 @@ Profile
   {% load socialaccount %}
     <body>
     {% if user.is_authenticated %}
-    <p style="text-align:center;">Welcome, {{ user.first_name }} !</p>
+    <h1 style="text-align:center;">Welcome, {{ user.first_name }} !</h1>
     <div style="text-align:center;">
         <p style="text-align:center;">{{ user.profile.bio }}</p>
         <a href="{% url 'CivicConnect:edit_profile' %}">Edit Profile!</a>
