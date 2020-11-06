@@ -1,3 +1,12 @@
+{% extends 'CivicConnect/base.html' %}
+
+{% load bootstrap4 %}
+
+{% block title %}
+Create a Template!
+{% endblock %}
+
+{% block content %}
 <div class="head">
 <div class="text-center">
 	<h1 class="text-center"><small> Submit your Template Here:</small></h1
@@ -5,7 +14,7 @@
 </div>
 
 
-<div class="body">
+<div class="body" style="text-align:center; margin-left:250px; margin-right:250px;">
 <form action="{% url 'CivicConnect:templatesubmission' %}" method="post">  
 {% csrf_token %}
 	<g class="text-uppercase text-center">
@@ -16,7 +25,7 @@
 	</g>
 	
 
-	<input type="text" name="topic"><br>
+	<input type="text" name="topic"><br><br>
 	
 	<a class="text-uppercase text-center">
 		
@@ -24,8 +33,12 @@
 	<br>
 		
 	</a>
+
 		
 	<textarea class = "form-control" rows="20" cols = "20" name ="template"></textarea>
-	<input type="submit" value="Submit"> 
+	<br>
+	{% buttons submit="Submit" reset="Cancel" %}{% endbuttons %}
 </form> 
 </div>
+
+{% endblock %}
