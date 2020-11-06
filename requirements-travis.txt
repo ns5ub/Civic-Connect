@@ -2,4 +2,6 @@ Django
 gunicorn
 django-bootstrap4
 django-allauth
+python-decouple
+django-multiselectfield
 django-crispy-forms

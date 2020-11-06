@@ -1,0 +1,55 @@
+{% extends 'CivicConnect/base.html' %}
+
+{% load bootstrap4 %}
+{% load index %}
+
+{% block title %}
+Get your Representatives
+{% endblock %}
+
+{% block content %}
+  {% load socialaccount %}
+    <body>
+        <h2>Federal</h2>
+        {% for office in country_representatives.offices %}
+            {% for i in office.officialIndices %}
+                {% with country_representatives.officials|index:i as rep %}
+                    <div class="container">
+                        <div class="card flex-row flex-wrap">
+                            <div class="card-header border-0">
+                                <img src="{{ rep.photoUrl }}" width=150px alt="">
+                            </div>
+                            <div class="card-block px-2">
+                                <h4 class="card-title">{{ rep.name }} ({{ rep.party }})</h4>
+                                <p class="card-text">{{ office.name }}</p>
+                                <a href="#" class="btn btn-primary">Contact!</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endwith %}
+            {% endfor %}
+        {% endfor %}
+
+        <h2>Regional</h2>
+        {% for office in administrative_representatives.offices %}
+            {% for i in office.officialIndices %}
+                {% with administrative_representatives.officials|index:i as rep %}
+                    <div class="container">
+                        <div class="card flex-row flex-wrap">
+                            <div class="card-header border-0">
+                                <img src="{{ rep.photoUrl }}" width=150px alt="">
+                            </div>
+                            <div class="card-block px-2">
+                                <h4 class="card-title">{{ rep.name }} ({{ rep.party }})</h4>
+                                <p class="card-text">{{ office.name }}</p>
+                                <a href="#" class="btn btn-primary">Contact!</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endwith %}
+            {% endfor %}
+        {% endfor %}
+    </body>
+
+{% endblock %}
+

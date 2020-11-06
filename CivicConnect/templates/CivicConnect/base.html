@@ -24,6 +24,9 @@
         <h4 style="text-align:center;">
             <a href="{% url 'CivicConnect:home' %}" style="margin-right: 5px;"> Home </a> |
             {% if user.is_authenticated %}
+                <a href="{% url 'CivicConnect:representatives' %}" style="margin-right: 5px;"> Get Representatives </a>|
+                <a href="{% url 'CivicConnect:templatesubmission' %}" style="margin-right: 5px;"> Template Submission </a>|
+                <a href="{% url 'CivicConnect:templates' %}" style="margin-right: 5px;"> Templates </a>|
                 <a href="{% url 'CivicConnect:logout' %}" style="margin-right: 5px;"> Logout </a>
             {% else %}
                 <a href="{% provider_login_url 'google' %}" style="margin-right: 5px;"> Login </a>
