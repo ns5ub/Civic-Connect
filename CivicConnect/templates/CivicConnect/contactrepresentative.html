@@ -1,0 +1,35 @@
+{% extends 'CivicConnect/base.html' %}
+
+{% load bootstrap4 %}
+
+{% block title %}
+Contact Form
+{% endblock %}
+
+{% block content %}
+  {% load socialaccount %}
+    <body>
+    {% if user.is_authenticated %}
+    <h1 style="text-align:center;">Welcome, {{ user.first_name }} !</h1>
+    <div style="text-align:center;">
+        <p style="text-align:center;">{{ name }}</p>
+        <p style="text-align:center;">{{ office }}</p>
+        <p style="text-align:center;">{{ address }}</p>
+        <p style="text-align:center;">{{ city }}</p>
+        <p style="text-align:center;">{{ state }}</p>
+        <p style="text-align:center;">{{ zip }}</p>
+        <p style="text-align:center;">{{ phone }}</p>
+        <p style="text-align:center;">{{ email }}</p>
+        <p style="text-align:center;">{{ url }}</p>
+    </div>
+    {% else %}
+    <div style="text-align:center;">
+      <a href="{% provider_login_url 'google' %}">Login with Google</a>
+    </div>
+
+    {% endif %}
+    </body>
+
+
+
+{% endblock %}

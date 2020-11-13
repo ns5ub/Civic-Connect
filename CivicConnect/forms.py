@@ -79,3 +79,13 @@ class CreateProfile(UserCreationForm):
         )
 
     required_css_class = "bootstrap4-req"
+
+
+class RepresentativeToSendForm(forms.Form):
+    address = forms.CharField(max_length=200, required=False)
+    city = forms.CharField(max_length=200, required=False)
+    state = forms.CharField(max_length=200, required=False)
+    zip = forms.CharField(max_length=200, required=False)
+    phone = forms.CharField(max_length=200, required=False)
+    url = forms.CharField(max_length=200, required=False)
+    email = forms.CharField(max_length=200, required=False)
