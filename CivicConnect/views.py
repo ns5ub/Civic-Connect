@@ -141,6 +141,7 @@ def contactrepresentative(request):
 def templatesubmission(request):
     if request.method == 'POST':
         topic = request.POST.get('topic')
+        print(topic)
         template = request.POST.get('template')
         submission_obj = TemplateSubmission(topic=topic, template=template)
         submission_obj.save()

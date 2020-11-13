@@ -30,7 +30,8 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 class TemplateSubmission(models.Model):
-    topic = MultiSelectField(choices=interests, max_choices=3)
+    #topic = MultiSelectField(choices=interests, max_choices=3)
+    topic = models.CharField(max_length=100, default="Topic goes here")
     template = models.CharField(max_length=5000, default="Write Template Here")
     def __str__(self):
         return self.template

@@ -10,7 +10,7 @@ Get your Representatives
 {% block content %}
   {% load socialaccount %}
     <body>
-        <h2>Federal</h2>
+        <h2>&emsp;Federal</h2>
         {% for office in country_representatives.offices %}
             {% for i in office.officialIndices %}
                 {% with country_representatives.officials|index:i as rep %}
@@ -44,7 +44,7 @@ Get your Representatives
             {% endfor %}
         {% endfor %}
 
-        <h2>Regional</h2>
+        <h2>&emsp;Regional</h2>
         {% for office in administrative_representatives.offices %}
             {% for i in office.officialIndices %}
                 {% with administrative_representatives.officials|index:i as rep %}
