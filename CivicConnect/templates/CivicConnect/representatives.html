@@ -22,7 +22,21 @@ Get your Representatives
                             <div class="card-block px-2">
                                 <h4 class="card-title">{{ rep.name }} ({{ rep.party }})</h4>
                                 <p class="card-text">{{ office.name }}</p>
-                                <a href="#" class="btn btn-primary">Contact!</a>
+                                <form  action="{% url 'CivicConnect:contactrepresentative' %}" method="POST" class="form">
+                                    <input type="hidden" name="name" value='{{ rep.name }}' />
+                                    <input type="hidden" name="office" value='{{ office.name }}' />
+                                    <input type="hidden" name="address" value='{{ rep.address.0.line1 }}' />
+                                    <input type="hidden" name="city" value='{{ rep.address.0.city }}' />
+                                    <input type="hidden" name="state" value='{{ rep.address.0.state }}' />
+                                    <input type="hidden" name="zip" value='{{ rep.address.0.zip }}' />
+                                    <input type="hidden" name="phone" value='{{ rep.phones.0 }}' />
+                                    <input type="hidden" name="url" value='{{ rep.urls.0 }}' />
+                                    <input type="hidden" name="email" value='{{ rep.emails.0 }}' />
+                                    {% csrf_token %}
+                                    {% buttons %}
+                                        <button type="submit" class="btn btn-primary">Contact</button>
+                                    {% endbuttons %}
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -42,7 +56,21 @@ Get your Representatives
                             <div class="card-block px-2">
                                 <h4 class="card-title">{{ rep.name }} ({{ rep.party }})</h4>
                                 <p class="card-text">{{ office.name }}</p>
-                                <a href="#" class="btn btn-primary">Contact!</a>
+                                <form  action="{% url 'CivicConnect:contactrepresentative' %}" method="POST" class="form">
+                                    <input type="hidden" name="name" value='{{ rep.name }}' />
+                                    <input type="hidden" name="office" value='{{ office.name }}' />
+                                    <input type="hidden" name="address" value='{{ rep.address.0.line1 }}' />
+                                    <input type="hidden" name="city" value='{{ rep.address.0.city }}' />
+                                    <input type="hidden" name="state" value='{{ rep.address.0.state }}' />
+                                    <input type="hidden" name="zip" value='{{ rep.address.0.zip }}' />
+                                    <input type="hidden" name="phone" value='{{ rep.phones.0 }}' />
+                                    <input type="hidden" name="url" value='{{ rep.urls.0 }}' />
+                                    <input type="hidden" name="email" value='{{ rep.emails.0 }}' />
+                                    {% csrf_token %}
+                                    {% buttons %}
+                                        <button type="submit" class="btn btn-primary">Contact</button>
+                                    {% endbuttons %}
+                                </form>
                             </div>
                         </div>
                     </div>

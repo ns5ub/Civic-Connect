@@ -11,6 +11,7 @@ urlpatterns = [
     path("profile/", views.profile, name="profile"),
     path("edit_profile/", views.update_profile, name="edit_profile"),
     path('representatives/', views.representatives, name='representatives'),
+    path('contactrepresentative/', views.contactrepresentative, name='contactrepresentative'),
     path("templatesubmission/", views.templatesubmission, name="templatesubmission"),
     path("templatesubmission/templates/", views.templates, name="templates"),
     #path("add_user/", views.signup, name="add_user"),

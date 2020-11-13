@@ -13,7 +13,7 @@ from . import forms
 # Create your views here.
 from django.views.generic import CreateView
 
-from CivicConnect.forms import UserForm, ProfileForm #, CreateProfile
+from CivicConnect.forms import UserForm, ProfileForm, RepresentativeToSendForm #, CreateProfile
 from CivicConnect.models import Profile, TemplateSubmission
 
 
@@ -108,12 +108,35 @@ def representatives(request):
                               "levels": "administrativeArea1",  # Sample level of government
                               }
 
-    country_reps = requests.request("GET", endpoint, params=querystring_country).json();
-    regional_reps = requests.request("GET", endpoint, params=querystring_regional).json();
-    adminarea_reps = requests.request("GET", endpoint, params=querystring_adminarea1).json();
+    country_reps = requests.request("GET", endpoint, params=querystring_country).json()
+    regional_reps = requests.request("GET", endpoint, params=querystring_regional).json()
+    adminarea_reps = requests.request("GET", endpoint, params=querystring_adminarea1).json()
+
     return render(request, 'CivicConnect/representatives.html', {'country_representatives': country_reps,
                                                                  'regional_representatives': regional_reps,
                                                                  'administrative_representatives': adminarea_reps})
+
+def contactrepresentative(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        office = request.POST.get('office')
+        address = request.POST.get('address')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        zip = request.POST.get('zip')
+        phone = request.POST.get('phone')
+        url = request.POST.get('url')
+        email = request.POST.get('email')
+    return render(request, 'CivicConnect/contactrepresentative.html', {'name': name,
+                                                                       'office': office,
+                                                                       'address': address,
+                                                                       'city': city,
+                                                                       'state': state,
+                                                                       'zip': zip,
+                                                                       'phone': phone,
+                                                                       'url': url,
+                                                                       'email': email})
+
 
 def templatesubmission(request):
     if request.method == 'POST':
