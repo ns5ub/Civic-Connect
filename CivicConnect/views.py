@@ -14,8 +14,12 @@ from . import forms
 from django.views.generic import CreateView
 
 from CivicConnect.forms import UserForm, ProfileForm, RepresentativeToSendForm #, CreateProfile
-from CivicConnect.models import Profile, TemplateSubmission
+from CivicConnect.models import Profile, TemplateSubmission, EmailTemplate
 
+# For Emails
+from django.core.mail import send_mail
+from django.http import HttpResponse
+# Emails
 
 def home(request):
     return render(request, 'CivicConnect/home.html')
@@ -151,7 +155,6 @@ def templatesubmission(request):
 def templates(request):
        temps = TemplateSubmission.objects.all()
        return render(request, 'CivicConnect/templates.html', {'template': temps})
-
 
 
 
