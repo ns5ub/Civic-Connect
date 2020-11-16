@@ -34,9 +34,7 @@ class TemplateSubmission(models.Model):
     topic = models.CharField(max_length=100, default="Topic goes here")
     template = models.CharField(max_length=5000, default="Write Template Here")
     
-    def approve(self):
-        self.approve_ts = True
-        self.save()
+    approved = models.BooleanField(default=False)
 
     def __str__(self):
         return self.template
