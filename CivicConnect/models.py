@@ -9,6 +9,8 @@ interests = [('1', "Cybersecurity"), ('2', "Police Brutality")]
 
 class Interest(models.Model):
     description = models.CharField(max_length=300)
+    def __str__(self):
+        return self.description
 
 
 class Profile(models.Model):
