@@ -143,14 +143,17 @@ def templatesubmission(request):
         topic = request.POST.get('topic')
         print(topic)
         template = request.POST.get('template')
-        submission_obj = TemplateSubmission(topic=topic, template=template)
+        approved = request.POST.get('approved')
+        submission_obj = TemplateSubmission(topic=topic, template=template, approved=approved)
         submission_obj.save()
-    t = TemplateSubmission.objects.all()
+    #t = TemplateSubmission.objects.all()
+    t = TemplateSubmission.objects.filter(approved=True)
     return render(request, 'CivicConnect/templatesubmission.html', {'template': t})
 
 
 def templates(request):
-       temps = TemplateSubmission.objects.all()
+       #temps = TemplateSubmission.objects.all()
+       temps = TemplateSubmission.objects.filter(approved=True)
        return render(request, 'CivicConnect/templates.html', {'template': temps})
 
 
