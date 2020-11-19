@@ -8,18 +8,21 @@ Profile
 
 {% block content %}
   {% load socialaccount %}
-    <body>
     {% if user.is_authenticated %}
-    <h1 style="text-align:center;">Welcome, {{ user.first_name }} !</h1>
+    <br>
+    <h1 style="text-align:center;">Profile: {{ user.username }}</h1>
     <div style="text-align:center;">
+        <p style="text-align:center;">{{ user.first_name }} {{ user.last_name }}</p>
+        <p style="text-align:center;">{{ user.email }}</p>
         <p style="text-align:center;">{{ user.profile.bio }}</p>
+        <p style="text-align:center;">{{ user.profile.address }}</p>
+        <p style="text-align:center;">Interests: display here</p>
         <a href="{% url 'CivicConnect:edit_profile' %}">Edit Profile!</a>
     </div>
     {% else %}
-    <div style="text-align:center;">
-      <a href="{% provider_login_url 'google' %}">Login with Google</a>
-    </div>
-
+      <div style="text-align:center;">
+        <a href="{% provider_login_url 'google' %}">Login with Google</a>
+      </div>
     {% endif %}
     </body>
 

@@ -7,14 +7,14 @@
 {% block content %}
 
 
-
-
+<br>
+<p style="text-align:center;"> <a href="{% url 'CivicConnect:templatesubmission' %}"  >Submit your own template!</a> </p>
 <ul style="list-style-type:none">
-{% for t in template %}
-<div class="text-center">
-	<b>Topic: </b>{{ t.topic }} </div>
-<u><b>Template: </b> <br> {{ t.template }} </u>
-{% endfor %}
+	{% for t in template %}
+		<div class="text-center">
+			<b>Topic: </b>{{ t.topic }} </div>
+		<u><b>Template: </b> <br> {{ t.template }} </u>
+	{% endfor %}
 </ul>
 
 </div>
