@@ -6,14 +6,20 @@
 
 {% block content %}
 
-
 <br>
-<p style="text-align:center;"> <a href="{% url 'CivicConnect:templatesubmission' %}"  >Submit your own template!</a> </p>
+<p style="text-align:center;font-size:20px"> <a href="{% url 'CivicConnect:templatesubmission' %}">Submit your own template!</a> </p>
+<hr style="width:90%;text-align:center">
+<p style="text-align:center;font-size:30px"><b>List of E-Mail Templates for Use</b></p>
+<hr style="width:90%;text-align:center">
 <ul style="list-style-type:none">
+	
 	{% for t in template %}
+
 		<div class="text-center">
-			<b>Topic: </b>{{ t.topic }} </div>
-		<u><b>Template: </b> <br> {{ t.template }} </u>
+			<b>Topic: </b><br>{{ t.topic }} </div><br>
+			<b>Template: </b> <br> {{ t.template }}
+	<hr style="width:90%;text-align:center">
+
 	{% endfor %}
 </ul>
 
