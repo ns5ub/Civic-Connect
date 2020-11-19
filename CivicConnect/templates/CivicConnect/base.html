@@ -1,47 +1,45 @@
 {% extends 'CivicConnect/bootstrap.html' %}
 
 {% load bootstrap4 %}
+{% load socialaccount %}
 
 {% block bootstrap4_content %}
-<body>
-<div class="container">
-    {% load socialaccount %}
-    {% if user.is_authenticated %}
-    <span style="float:right"> <a href="{% url 'CivicConnect:profile' %}" style="margin-right: 5px;">Logged in: {{ user.username }} </a></span><br>
-    {% endif %}
-    <p>
-    <style>
-    .setCenter {
-    margin:auto;
-    width:90%;
-    height:auto;
-    border:3px solid #000;
-    color: black;
-    background: gainsboro;
-    }
-    </style>
-    <div class="setCenter">
-        <h4 style="text-align:center;">
-            <a href="{% url 'CivicConnect:home' %}" style="margin-right: 5px;"> Home </a> |
-            {% if user.is_authenticated %}
-                <a href="{% url 'CivicConnect:representatives' %}" style="margin-right: 5px;"> Get Representatives </a>|
-                <a href="{% url 'CivicConnect:templatesubmission' %}" style="margin-right: 5px;"> Template Submission </a>|
-                <a href="{% url 'CivicConnect:templates' %}" style="margin-right: 5px;"> Templates </a>|
-                <a href="{% url 'CivicConnect:logout' %}" style="margin-right: 5px;"> Logout </a>
-            {% else %}
-                <a href="{% provider_login_url 'google' %}" style="margin-right: 5px;"> Login </a>
-            {% endif %}
-        </h4>
-    </div>
-    </p>
-    <h1 style="text-align:center;">{% block title %}(no title){% endblock %}</h1>
-</div>
 
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand">Civic Connect</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'CivicConnect:index' %}">Home<span class="sr-only">(current)</span></a>
+            </li>
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'CivicConnect:profile' %}">My Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'CivicConnect:representatives' %}">Find Representatives</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'CivicConnect:templates' %}">Contact Templates</a>
+                </li>
+            {% endif %}
+        </ul>
+        <div class="nav-item my-2 my-lg-0">
+            {% if user.is_authenticated %}
+                <a class="nav-link" href="{% url 'CivicConnect:logout' %}">Logout</a>
+            {% else %}
+                <a class="nav-link" href="{% provider_login_url 'google' %}">Login</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
 
 {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
-
-{% block content %}(no content){% endblock %}
-
-{% endblock %}
+<body>
+    {% block content %}(no content){% endblock %}
 </body>
-
+{% endblock %}

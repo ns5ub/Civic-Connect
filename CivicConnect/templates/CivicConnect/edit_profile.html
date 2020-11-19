@@ -11,24 +11,22 @@ Profile Settings
 
 {% block content %}
   {% load socialaccount %}
-    <body>
+    <br>
     {% if user.is_authenticated %}
-    <p style="text-align:center;">Profile: {{ user.first_name }} {{ user.last_name }} !</p>
-    <div style="text-align:center; margin-right:300px; margin-left:300px; align:center;">
-        <form method="post">
-            {% csrf_token %}
-            {% crispy user_form %}
-            {% crispy profile_form %}
-            {% buttons submit="Submit" reset="Cancel" %}{% endbuttons %}
-        </form>
-    </div>
+        <h1 style="text-align:center;">Edit Profile: {{ user.username }}</h1>
+        <div style="text-align:center; margin-right:300px; margin-left:300px; align:center;">
+            <form method="post">
+                {% csrf_token %}
+                {% crispy user_form %}
+                {% crispy profile_form %}
+                {% buttons submit="Submit" reset="Reset" %}{% endbuttons %}
+            </form>
+        </div>
     {% else %}
-    <div style="text-align:center;">
-      <a href="{% provider_login_url 'google' %}">Login with Google</a>
-    </div>
-
+        <div style="text-align:center;">
+          <a href="{% provider_login_url 'google' %}">Login with Google</a>
+        </div>
     {% endif %}
-    </body>
 
 
 

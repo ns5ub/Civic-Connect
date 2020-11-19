@@ -2,27 +2,18 @@
 
 {% load bootstrap4 %}
 
-{% block title %}
-Login to Civic Connect
-{% endblock %}
+
 
 {% block content %}
   {% load socialaccount %}
+  <br>
+  <h3 style="text-align:center;">Welcome to Civic Connect!</h3>
+
     <body>
-    {% if user.is_authenticated %}
-    <p style="text-align:center;">Welcome, {{ user.username }} !</p>
-    <div style="text-align:center;">
-      <a href="{% url 'CivicConnect:logout' %}" style="margin-right: 5px;"> Logout! </a>
-    </div>
-
-    {% else %}
-    <div style="text-align:center;">
-      <a href="{% provider_login_url 'google' %}">Login with Google</a>
-    </div>
-
-    {% endif %}
+        {% if user.is_authenticated %}
+          <p style="text-align:center;">You are already logged in as {{ user.username }} - Click around to get started!</p>
+        {% else %}
+          <p style="text-align:center;"> <a href="{% provider_login_url 'google' %}">Login with Google</a> to get started!</p>
+        {% endif %}
     </body>
-
-
-
 {% endblock %}
