@@ -61,6 +61,7 @@ def update_profile(request):
             user_form.save()
             profile_form.save()
             messages.success(request, 'Your profile was successfully updated!')
+            return redirect('CivicConnect:profile')
         else:
             messages.error(request, 'Please correct the error below.')
     else:
@@ -153,6 +154,7 @@ def templatesubmission(request):
         approved = False #request.POST.get('approved')
         submission_obj = TemplateSubmission(topic=topic, template=template, approved=approved)
         submission_obj.save()
+        return redirect('CivicConnect:template')
     #t = TemplateSubmission.objects.all()
     #t = TemplateSubmission.objects.filter(approved=True)
     return render(request, 'CivicConnect/templatesubmission.html',)#{'template': t})

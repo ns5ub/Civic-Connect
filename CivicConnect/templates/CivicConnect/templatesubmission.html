@@ -8,14 +8,15 @@ Create a Template!
 
 {% block content %}
 <div class="head">
-<div class="text-center">
-	<h1 class="text-center"><small> Submit your Template Here:</small></h1
-</div>
+	<div class="text-center">
+		<h1 class="text-center"><small> Submit your Template Here:</small></h1>
+		<p> Once you submit, an admin must approve your template before its visible! </p>
+	</div>
 </div>
 
 
 <div class="body" style="text-align:center; margin-left:250px; margin-right:250px;">
-<form action="{% url 'CivicConnect:templates' %}" method="post">
+<form method="post">
 {% csrf_token %}
 	<g class="text-uppercase text-center">
 	
