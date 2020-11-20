@@ -154,7 +154,7 @@ def templatesubmission(request):
         approved = False #request.POST.get('approved')
         submission_obj = TemplateSubmission(topic=topic, template=template, approved=approved)
         submission_obj.save()
-        return redirect('CivicConnect:template')
+        return redirect('CivicConnect:templates')
     #t = TemplateSubmission.objects.all()
     #t = TemplateSubmission.objects.filter(approved=True)
     return render(request, 'CivicConnect/templatesubmission.html',)#{'template': t})
