@@ -89,3 +89,4 @@ class RepresentativeToSendForm(forms.Form):
     phone = forms.CharField(max_length=200, required=False)
     url = forms.CharField(max_length=200, required=False)
     email = forms.CharField(max_length=200, required=False)
+    photo = forms.CharField(max_length=500, required=False)
