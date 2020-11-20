@@ -100,21 +100,26 @@ def representatives(request):
     querystring_regional = {"key": settings.GOOGLE_CIVIC_API_KEY,  # API key I setup in the Google Developer's Console
                             "address": request.user.profile.address,
                             "includeOffices": "true",  # Includes offices in addition to officials, can set false
-                            "levels": "regional",  # Sample level of government
+                            "levels": "administrativeArea1",  # Sample level of government
                             }
-    querystring_adminarea1 = {"key": settings.GOOGLE_CIVIC_API_KEY,  # API key I setup in the Google Developer's Console
+    querystring_local = {"key": settings.GOOGLE_CIVIC_API_KEY,  # API key I setup in the Google Developer's Console
                               "address": request.user.profile.address,
                               "includeOffices": "true",  # Includes offices in addition to officials, can set false
-                              "levels": "administrativeArea1",  # Sample level of government
+                              "levels": "administrativeArea2",  # Sample level of government
                               }
 
     country_reps = requests.request("GET", endpoint, params=querystring_country).json()
     regional_reps = requests.request("GET", endpoint, params=querystring_regional).json()
-    adminarea_reps = requests.request("GET", endpoint, params=querystring_adminarea1).json()
+    local_reps = requests.request("GET", endpoint, params=querystring_local).json()
+
+    valid_address = True
+    if ("error" in country_reps):
+        valid_address = False
 
     return render(request, 'CivicConnect/representatives.html', {'country_representatives': country_reps,
                                                                  'regional_representatives': regional_reps,
-                                                                 'administrative_representatives': adminarea_reps})
+                                                                 'local_representatives': local_reps,
+                                                                 'valid_address': valid_address})
 
 def contactrepresentative(request):
     if request.method == 'POST':
