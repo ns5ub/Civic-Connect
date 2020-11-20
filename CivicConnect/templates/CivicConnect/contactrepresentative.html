@@ -9,8 +9,18 @@
   {% load socialaccount %}
     <body>
     {% if user.is_authenticated %}
+    <br>
     <h1 style="text-align:center;">Contact Information for {{ name }}</h1>
-    <div style="text-align:center;">
+    <br>
+    <div style="display:inline; position:relative">
+        {% if photo %}
+        <img src="{{ photo }}" alt="not found" width="200px" style="float:left; margin-left:50px; border-radius:50%;"/>
+        {% else %}
+        <img src="https://lh3.googleusercontent.com/proxy/dJhRdKeeynmWt1g1pSS8rT5_g8KBiTb3J_R2bYbsu314EKBemXpJEOIIh2XVjwIEu_Nw6YeUPQ3k458D6T_2ESd3qRJqYusPDhrtwcnC9eKS40YgrdqL"
+             width="200px" style="float:left; margin-left:50px; border-radius:50%;">
+        {% endif %}
+    </div>
+    <!--<div style="text-align:center; float:center;">
         <p style="text-align:center;">{{ office }}</p>
         <p style="text-align:center;">{{ address }}</p>
         <p style="text-align:center;">{{ city }}, {{ state }}</p>
@@ -19,8 +29,51 @@
         <p style="text-align:center;"><b> Copy the email address below (if there is one) into your sendto line in an email draft on your email</b></p>
         <p style="text-align:center;">{{ email }}</p>
         <p style="text-align:center;"><a href="{{ url }}">{{ url }}</a></p>
-        <a class="btn btn-primary" href="/CivicConnect/templatesubmission/templates"> See Available Templates</a>
-    </div>
+        <p style="text-align:center;"><a class="btn btn-primary" href="/CivicConnect/templatesubmission/templates"> See Available Templates</a></p>
+    </div>-->
+    <table class="table table-striped" align="center" style="text-align:center; width:50%;">
+        <tbody>
+            <tr>
+                <td>Office</td>
+                <td>{{ office }}</td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                {% if address %}
+                <td>{{ address }}, {{ city }}, {{ state }} {{ zip }}</td>
+                {% else %}
+                <td><em>Not available</em></td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>Phone</td>
+                {% if phone %}
+                <td>{{ phone }}</td>
+                {% else %}
+                <td><em>Not available</em></td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>Email</td>
+                {% if email %}
+                <td><a href="mailto:{{ email }}">{{ email }}</a></td>
+                {% else %}
+                <td><em>Not available</em></td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td>Website</td>
+                {% if url %}
+                <td><a href="{{ url }}">{{ url }}</a></td>
+                {% else %}
+                <td><em>Not available</em></td>
+                {% endif %}
+            </tr>
+
+        </tbody>
+    </table>
+    <br>
+    <p style="text-align:center;"><a class="btn btn-primary" href="/CivicConnect/templatesubmission/templates"> See Available Templates</a></p>
     {% else %}
     <div style="text-align:center;">
       <a href="{% provider_login_url 'google' %}">Login with Google</a>

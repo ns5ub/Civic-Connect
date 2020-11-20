@@ -3,81 +3,181 @@
 {% load bootstrap4 %}
 {% load index %}
 
-{% block title %}
-Get your Representatives
-{% endblock %}
-
 {% block content %}
   {% load socialaccount %}
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    </head>
     <body>
-        <h2>&emsp;Federal</h2>
-        {% for office in country_representatives.offices %}
-            {% for i in office.officialIndices %}
-                {% with country_representatives.officials|index:i as rep %}
-                    <div class="container">
-                        <div class="card flex-row flex-wrap">
-                            <div class="card-header border-0">
-                                <img src="{{ rep.photoUrl }}" width=150px alt="">
-                            </div>
-                            <div class="card-block px-2">
-                                <h4 class="card-title">{{ rep.name }} ({{ rep.party }})</h4>
-                                <p class="card-text">{{ office.name }}</p>
-                                <form  action="{% url 'CivicConnect:contactrepresentative' %}" method="POST" class="form">
-                                    <input type="hidden" name="name" value='{{ rep.name }}' />
-                                    <input type="hidden" name="office" value='{{ office.name }}' />
-                                    <input type="hidden" name="address" value='{{ rep.address.0.line1 }}' />
-                                    <input type="hidden" name="city" value='{{ rep.address.0.city }}' />
-                                    <input type="hidden" name="state" value='{{ rep.address.0.state }}' />
-                                    <input type="hidden" name="zip" value='{{ rep.address.0.zip }}' />
-                                    <input type="hidden" name="phone" value='{{ rep.phones.0 }}' />
-                                    <input type="hidden" name="url" value='{{ rep.urls.0 }}' />
-                                    <input type="hidden" name="email" value='{{ rep.emails.0 }}' />
-                                    {% csrf_token %}
-                                    {% buttons %}
-                                        <button type="submit" class="btn btn-primary">Contact</button>
-                                    {% endbuttons %}
-                                </form>
-                            </div>
+        <br>
+        <h1 style="text-align:center;"> Your Representatives: </h1>
+        {% if valid_address %}
+            <div id="accordion" class="p-5">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h1 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                Federal
+                            </button>
+                        </h1>
+                    </div>
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                                {% for office in country_representatives.offices %}
+                                    {% for i in office.officialIndices %}
+                                        {% with country_representatives.officials|index:i as rep %}
+                                            <div class="container">
+                                                <div class="card flex-row flex-wrap">
+                                                    <div class="card-header border-0">
+                                                        {% if rep.photoUrl %}
+                                                            <img src="{{ rep.photoUrl }}" alt="not found" width="150px">
+                                                        {% else %}
+                                                            <img src="https://lh3.googleusercontent.com/proxy/dJhRdKeeynmWt1g1pSS8rT5_g8KBiTb3J_R2bYbsu314EKBemXpJEOIIh2XVjwIEu_Nw6YeUPQ3k458D6T_2ESd3qRJqYusPDhrtwcnC9eKS40YgrdqL" width="150px">
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="card-block px-2">
+                                                        <h4 class="card-title">{{ rep.name }} ({{ rep.party }})</h4>
+                                                        <p class="card-text">{{ office.name }}</p>
+                                                        <form  action="{% url 'CivicConnect:contactrepresentative' %}" method="POST" class="form">
+                                                            <input type="hidden" name="name" value='{{ rep.name }}' />
+                                                            <input type="hidden" name="office" value='{{ office.name }}' />
+                                                            <input type="hidden" name="address" value='{{ rep.address.0.line1 }}' />
+                                                            <input type="hidden" name="city" value='{{ rep.address.0.city }}' />
+                                                            <input type="hidden" name="state" value='{{ rep.address.0.state }}' />
+                                                            <input type="hidden" name="zip" value='{{ rep.address.0.zip }}' />
+                                                            <input type="hidden" name="phone" value='{{ rep.phones.0 }}' />
+                                                            <input type="hidden" name="url" value='{{ rep.urls.0 }}' />
+                                                            <input type="hidden" name="email" value='{{ rep.emails.0 }}' />
+                                                            <input type="hidden" name="photo" value='{{ rep.photoUrl }}' />
+                                                            {% csrf_token %}
+                                                            {% buttons %}
+                                                                <button type="submit" class="btn btn-primary">Contact</button>
+                                                            {% endbuttons %}
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endwith %}
+                                    {% endfor %}
+                                {% endfor %}
                         </div>
                     </div>
-                {% endwith %}
-            {% endfor %}
-        {% endfor %}
+                </div>
 
-        <h2>&emsp;Regional</h2>
-        {% for office in administrative_representatives.offices %}
-            {% for i in office.officialIndices %}
-                {% with administrative_representatives.officials|index:i as rep %}
-                    <div class="container">
-                        <div class="card flex-row flex-wrap">
-                            <div class="card-header border-0">
-                                <img src="{{ rep.photoUrl }}" width=150px alt="">
-                            </div>
-                            <div class="card-block px-2">
-                                <h4 class="card-title">{{ rep.name }} ({{ rep.party }})</h4>
-                                <p class="card-text">{{ office.name }}</p>
-                                <form  action="{% url 'CivicConnect:contactrepresentative' %}" method="POST" class="form">
-                                    <input type="hidden" name="name" value='{{ rep.name }}' />
-                                    <input type="hidden" name="office" value='{{ office.name }}' />
-                                    <input type="hidden" name="address" value='{{ rep.address.0.line1 }}' />
-                                    <input type="hidden" name="city" value='{{ rep.address.0.city }}' />
-                                    <input type="hidden" name="state" value='{{ rep.address.0.state }}' />
-                                    <input type="hidden" name="zip" value='{{ rep.address.0.zip }}' />
-                                    <input type="hidden" name="phone" value='{{ rep.phones.0 }}' />
-                                    <input type="hidden" name="url" value='{{ rep.urls.0 }}' />
-                                    <input type="hidden" name="email" value='{{ rep.emails.0 }}' />
-                                    {% csrf_token %}
-                                    {% buttons %}
-                                        <button type="submit" class="btn btn-primary">Contact</button>
-                                    {% endbuttons %}
-                                </form>
-                            </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h1 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Regional
+                            </button>
+                        </h1>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body">
+                                {% for office in regional_representatives.offices %}
+                                    {% for i in office.officialIndices %}
+                                        {% with regional_representatives.officials|index:i as rep %}
+                                            <div class="container">
+                                                <div class="card flex-row flex-wrap">
+                                                    <div class="card-header border-0">
+                                                        <div class="card-header border-0">
+                                                            {% if rep.photoUrl %}
+                                                                <img src="{{ rep.photoUrl }}" alt="not found" width="150px">
+                                                            {% else %}
+                                                                <img src="https://lh3.googleusercontent.com/proxy/dJhRdKeeynmWt1g1pSS8rT5_g8KBiTb3J_R2bYbsu314EKBemXpJEOIIh2XVjwIEu_Nw6YeUPQ3k458D6T_2ESd3qRJqYusPDhrtwcnC9eKS40YgrdqL" width="150px">
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-block px-2">
+                                                        <h4 class="card-title">{{ rep.name }} ({{ rep.party }})</h4>
+                                                        <p class="card-text">{{ office.name }}</p>
+                                                        <form  action="{% url 'CivicConnect:contactrepresentative' %}" method="POST" class="form">
+                                                            <input type="hidden" name="name" value='{{ rep.name }}' />
+                                                            <input type="hidden" name="office" value='{{ office.name }}' />
+                                                            <input type="hidden" name="address" value='{{ rep.address.0.line1 }}' />
+                                                            <input type="hidden" name="city" value='{{ rep.address.0.city }}' />
+                                                            <input type="hidden" name="state" value='{{ rep.address.0.state }}' />
+                                                            <input type="hidden" name="zip" value='{{ rep.address.0.zip }}' />
+                                                            <input type="hidden" name="phone" value='{{ rep.phones.0 }}' />
+                                                            <input type="hidden" name="url" value='{{ rep.urls.0 }}' />
+                                                            <input type="hidden" name="email" value='{{ rep.emails.0 }}' />
+                                                            <input type="hidden" name="photo" value='{{ rep.photoUrl }}' />
+                                                            {% csrf_token %}
+                                                            {% buttons %}
+                                                                <button type="submit" class="btn btn-primary">Contact</button>
+                                                            {% endbuttons %}
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endwith %}
+                                    {% endfor %}
+                                {% endfor %}
                         </div>
                     </div>
-                {% endwith %}
-            {% endfor %}
-        {% endfor %}
+                </div>
+
+                 <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h1 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Local
+                            </button>
+                        </h1>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                        <div class="card-body">
+                                {% for office in local_representatives.offices %}
+                                    {% for i in office.officialIndices %}
+                                        {% with local_representatives.officials|index:i as rep %}
+                                            <div class="container">
+                                                <div class="card flex-row flex-wrap">
+                                                    <div class="card-header border-0">
+                                                        <div class="card-header border-0">
+                                                            {% if rep.photoUrl %}
+                                                                <img src="{{ rep.photoUrl }}" alt="not found" width="150px">
+                                                            {% else %}
+                                                                <img src="https://lh3.googleusercontent.com/proxy/dJhRdKeeynmWt1g1pSS8rT5_g8KBiTb3J_R2bYbsu314EKBemXpJEOIIh2XVjwIEu_Nw6YeUPQ3k458D6T_2ESd3qRJqYusPDhrtwcnC9eKS40YgrdqL" width="150px">
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-block px-2">
+                                                        <h4 class="card-title">{{ rep.name }} ({{ rep.party }})</h4>
+                                                        <p class="card-text">{{ office.name }}</p>
+                                                        <form  action="{% url 'CivicConnect:contactrepresentative' %}" method="POST" class="form">
+                                                            <input type="hidden" name="name" value='{{ rep.name }}' />
+                                                            <input type="hidden" name="office" value='{{ office.name }}' />
+                                                            <input type="hidden" name="address" value='{{ rep.address.0.line1 }}' />
+                                                            <input type="hidden" name="city" value='{{ rep.address.0.city }}' />
+                                                            <input type="hidden" name="state" value='{{ rep.address.0.state }}' />
+                                                            <input type="hidden" name="zip" value='{{ rep.address.0.zip }}' />
+                                                            <input type="hidden" name="phone" value='{{ rep.phones.0 }}' />
+                                                            <input type="hidden" name="url" value='{{ rep.urls.0 }}' />
+                                                            <input type="hidden" name="email" value='{{ rep.emails.0 }}' />
+                                                            <input type="hidden" name="photo" value='{{ rep.photoUrl }}' />
+                                                            {% csrf_token %}
+                                                            {% buttons %}
+                                                                <button type="submit" class="btn btn-primary">Contact</button>
+                                                            {% endbuttons %}
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endwith %}
+                                    {% endfor %}
+                                {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <h2 style="text-align:center;">  <a href="{% url 'CivicConnect:edit_profile' %}">Your address isn't valid - Provide more information in your profile! </a> </h2>
+        {% endif %}
     </body>
 
+
 {% endblock %}
+
+
 

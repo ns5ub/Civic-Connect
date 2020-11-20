@@ -61,6 +61,7 @@ def update_profile(request):
             user_form.save()
             profile_form.save()
             messages.success(request, 'Your profile was successfully updated!')
+            return redirect('CivicConnect:profile')
         else:
             messages.error(request, 'Please correct the error below.')
     else:
@@ -100,21 +101,26 @@ def representatives(request):
     querystring_regional = {"key": settings.GOOGLE_CIVIC_API_KEY,  # API key I setup in the Google Developer's Console
                             "address": request.user.profile.address,
                             "includeOffices": "true",  # Includes offices in addition to officials, can set false
-                            "levels": "regional",  # Sample level of government
+                            "levels": "administrativeArea1",  # Sample level of government
                             }
-    querystring_adminarea1 = {"key": settings.GOOGLE_CIVIC_API_KEY,  # API key I setup in the Google Developer's Console
+    querystring_local = {"key": settings.GOOGLE_CIVIC_API_KEY,  # API key I setup in the Google Developer's Console
                               "address": request.user.profile.address,
                               "includeOffices": "true",  # Includes offices in addition to officials, can set false
-                              "levels": "administrativeArea1",  # Sample level of government
+                              "levels": "administrativeArea2",  # Sample level of government
                               }
 
     country_reps = requests.request("GET", endpoint, params=querystring_country).json()
     regional_reps = requests.request("GET", endpoint, params=querystring_regional).json()
-    adminarea_reps = requests.request("GET", endpoint, params=querystring_adminarea1).json()
+    local_reps = requests.request("GET", endpoint, params=querystring_local).json()
+
+    valid_address = True
+    if ("error" in country_reps):
+        valid_address = False
 
     return render(request, 'CivicConnect/representatives.html', {'country_representatives': country_reps,
                                                                  'regional_representatives': regional_reps,
-                                                                 'administrative_representatives': adminarea_reps})
+                                                                 'local_representatives': local_reps,
+                                                                 'valid_address': valid_address})
 
 def contactrepresentative(request):
     if request.method == 'POST':
@@ -127,6 +133,7 @@ def contactrepresentative(request):
         phone = request.POST.get('phone')
         url = request.POST.get('url')
         email = request.POST.get('email')
+        photo = request.POST.get('photo')
     return render(request, 'CivicConnect/contactrepresentative.html', {'name': name,
                                                                        'office': office,
                                                                        'address': address,
@@ -135,7 +142,8 @@ def contactrepresentative(request):
                                                                        'zip': zip,
                                                                        'phone': phone,
                                                                        'url': url,
-                                                                       'email': email})
+                                                                       'email': email,
+                                                                       'photo': photo})
 
 
 def templatesubmission(request):
@@ -146,6 +154,7 @@ def templatesubmission(request):
         approved = False #request.POST.get('approved')
         submission_obj = TemplateSubmission(topic=topic, template=template, approved=approved)
         submission_obj.save()
+        return redirect('CivicConnect:template')
     #t = TemplateSubmission.objects.all()
     #t = TemplateSubmission.objects.filter(approved=True)
     return render(request, 'CivicConnect/templatesubmission.html',)#{'template': t})
