@@ -127,6 +127,7 @@ def contactrepresentative(request):
         phone = request.POST.get('phone')
         url = request.POST.get('url')
         email = request.POST.get('email')
+        photo = request.POST.get('photo')
     return render(request, 'CivicConnect/contactrepresentative.html', {'name': name,
                                                                        'office': office,
                                                                        'address': address,
@@ -135,7 +136,8 @@ def contactrepresentative(request):
                                                                        'zip': zip,
                                                                        'phone': phone,
                                                                        'url': url,
-                                                                       'email': email})
+                                                                       'email': email,
+                                                                       'photo': photo})
 
 
 def templatesubmission(request):
