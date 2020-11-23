@@ -3,15 +3,11 @@
 {% load bootstrap4 %}
 {% load crispy_forms_tags %}
 
-{% block title %}
-Create a Template!
-{% endblock %}
-
 {% block content %}
 <div class="head">
 	<div class="text-center">
-		<h1 class="text-center"><small> Submit your Template Here:</small></h1>
-		<p> Once you submit, an admin must approve your template before its visible! </p>
+		<h1 class="text-center"><small> Edit your Template Here:</small></h1>
+		<p> Once you submit, an admin must re-approve your template before its visible! </p>
 	</div>
 </div>
 
@@ -22,7 +18,6 @@ Create a Template!
 		{% crispy template_form %}
         {% buttons submit="Submit" reset="Reset" %}{% endbuttons %}
 	</form>
-	{{ template_form.media }}
 </div>
 
 {% endblock %}

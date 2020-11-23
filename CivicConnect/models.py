@@ -7,6 +7,7 @@ from multiselectfield import MultiSelectField
 
 interests = [('1', "Cybersecurity"), ('2', "Police Brutality")]
 
+
 class Interest(models.Model):
     description = models.CharField(max_length=300)
     def __str__(self):
@@ -18,6 +19,8 @@ class Profile(models.Model):
     bio = models.TextField(max_length=500, blank=True)
     address = models.CharField(max_length=30, blank=True)
     interests = models.ManyToManyField(Interest, default=[])
+    def __str__(self):
+        return self.user.username
 
 
 @receiver(post_save, sender=User)
@@ -32,10 +35,11 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 class TemplateSubmission(models.Model):
-    #topic = MultiSelectField(choices=interests, max_choices=3)
-    topic = models.CharField(max_length=100, default="Topic goes here")
-    template = models.CharField(max_length=5000, default="Write Template Here")
-    
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE,  blank=True, null=True, default=None)
+    topic = models.CharField(max_length=100, blank=True)
+    template = models.TextField(max_length=5000, blank=True)
+    date_posted = models.DateTimeField(auto_now=True)
+    associated_interests = models.ManyToManyField(Interest, default=[])
     approved = models.BooleanField(default=False)
 
     def __str__(self):

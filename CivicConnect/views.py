@@ -7,13 +7,14 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.urls import reverse_lazy
+from django.db.models import Q
 
 from . import forms
 
 # Create your views here.
 from django.views.generic import CreateView
 
-from CivicConnect.forms import UserForm, ProfileForm, RepresentativeToSendForm #, CreateProfile
+from CivicConnect.forms import UserForm, ProfileForm, TemplateForm #RepresentativeToSendForm #, CreateProfile
 from CivicConnect.models import Profile, TemplateSubmission
 
 
@@ -147,24 +148,50 @@ def contactrepresentative(request):
 @login_required
 def templatesubmission(request):
     if request.method == 'POST':
-        topic = request.POST.get('topic')
-        print(topic)
-        template = request.POST.get('template')
-        approved = False #request.POST.get('approved')
-        submission_obj = TemplateSubmission(topic=topic, template=template, approved=approved)
-        submission_obj.save()
-        return redirect('CivicConnect:templates')
-    #t = TemplateSubmission.objects.all()
-    #t = TemplateSubmission.objects.filter(approved=True)
-    return render(request, 'CivicConnect/templatesubmission.html',)#{'template': t})
+        template_form = TemplateForm(request.POST, user=request.user.profile)
+        if template_form.is_valid():
+            template_form.save()
+            return redirect('CivicConnect:templates')
+    else:
+        # Don't forget to add user argument
+        template_form = TemplateForm(user=request.user.profile)
+    return render(request, 'CivicConnect/templatesubmission.html', {
+        'template_form': template_form,
+    })
 
 
 @login_required
 def templates(request):
        #temps = TemplateSubmission.objects.all()
-       temps = TemplateSubmission.objects.filter(approved=True)
-       return render(request, 'CivicConnect/templates.html', {'template': temps})
+       temps = TemplateSubmission.objects.filter(approved=True).order_by('date_posted').reverse()
+       search_text = "No Search Currently - All Displayed"
+       if request.GET.get('search'):
+           search_text = request.GET.get('search')
+           temps = temps.filter(    Q(topic__contains=search_text) |
+                                    Q(template__contains=search_text) |
+                                    Q(associated_interests__description__contains=search_text))
 
+       return render(request, 'CivicConnect/templates.html', {'template': temps,
+                                                              'search_text': search_text})
 
-
-
+@login_required
+def mytemplates(request):
+    temps = TemplateSubmission.objects.filter(author=request.user.profile).order_by('date_posted').reverse()
+    return render(request, 'CivicConnect/mytemplates.html', {'template': temps,
+                                                             })
+'''
+@login_required
+def update_template(request):
+    if request.method == 'POST':
+        template_to_edit_id = request.POST.get('template_to_edit')
+        template_to_edit = TemplateSubmission.objects.get(pk=template_to_edit_id)
+        template_form = TemplateForm(request.POST, user=request.user.profile, instance=template_to_edit)
+        if template_form.is_valid():
+            template_form.save()
+            return redirect('CivicConnect:mytemplates')
+    else:
+        template_form = TemplateForm(user=request.user.profile)
+    return render(request, 'CivicConnect/edit_template.html', {
+        'template_form': template_form,
+    })
+'''
