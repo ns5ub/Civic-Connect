@@ -15,7 +15,7 @@ mark_approved.short_description = "Mark selected templates as approved"
 
 
 class TemplateSubmissionAdmin(admin.ModelAdmin):
-    list_display = ['topic', 'template', 'approved']
+    list_display = ['topic', 'template', 'approved', 'date_posted']
     actions = [mark_approved]
 
 
