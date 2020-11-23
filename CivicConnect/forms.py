@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from CivicConnect.models import Profile
+from CivicConnect.models import Profile, TemplateSubmission
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column
 
@@ -90,3 +90,32 @@ class RepresentativeToSendForm(forms.Form):
     url = forms.CharField(max_length=200, required=False)
     email = forms.CharField(max_length=200, required=False)
     photo = forms.CharField(max_length=500, required=False)
+
+
+class TemplateForm(forms.ModelForm):
+    class Meta:
+        model = TemplateSubmission
+        fields = ("topic", "template", "associated_interests")
+
+    required_css_class = 'bootstrap4-req'
+    use_required_attribute = False
+
+    def __init__(self, *args, **kwargs):
+        self._user = kwargs.pop('user')
+        self.helper = FormHelper()
+        self.helper.form_id = 'id-TemplateForm'
+        self.helper.layout = Layout(
+            'topic',
+            'template',
+            'associated_interests'
+        )
+        self.helper.form_tag = False
+        super(TemplateForm, self).__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        inst = super(TemplateForm, self).save(commit=False)
+        inst.author = self._user
+        if commit:
+            inst.save()
+            self.save_m2m()
+        return inst

@@ -4,6 +4,10 @@
 {% load socialaccount %}
 
 {% block bootstrap4_content %}
+<head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+</head>
 
 <script>(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -56,9 +60,11 @@
                 <a class="nav-link" href="{% url 'CivicConnect:index' %}">home<span class="sr-only">(current)</span></a>
             </li>
             {% if user.is_authenticated %}
+
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'CivicConnect:index' %}">about</a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'CivicConnect:representatives' %}">representatives</a>
                 </li>
@@ -70,6 +76,17 @@
         <div class="nav-item  justify-content-end">
 
             <a class="nav-item nav-link" href="{% url 'CivicConnect:profile' %}">profile</a>
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        My Profile
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'CivicConnect:profile' %}">View</a>
+                        <a class="dropdown-item" href="{% url 'CivicConnect:edit_profile' %}">Edit Profile</a>
+                        <a class="dropdown-item" href="{% url 'CivicConnect:mytemplates' %}">My Templates</a>
+                    </div>
+                    >>>>>>> Master
+                </div>
 
             {% if user.is_authenticated %}
                 <a class="nav-item nav-link" href="{% url 'CivicConnect:logout' %}">logout</a>

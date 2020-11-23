@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path, include, re_path
 from . import views
 #from django.views.generic import TemplateView
 
@@ -9,6 +9,8 @@ urlpatterns = [
     path('index/', views.index, name='index'),
     path("logout/", views.logout_request, name="logout"),
     path("profile/", views.profile, name="profile"),
+    path("profile/mytemplates", views.mytemplates, name="mytemplates"),
+    #path("profile/mytemplates/edit_template", views.update_template, name="edit_template"),
     path("edit_profile/", views.update_profile, name="edit_profile"),
     path('representatives/', views.representatives, name='representatives'),
     path('contactrepresentative/', views.contactrepresentative, name='contactrepresentative'),
