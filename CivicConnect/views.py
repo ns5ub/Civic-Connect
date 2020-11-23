@@ -25,10 +25,6 @@ def index(request):
     return render(request, 'CivicConnect/index.html')
 
 
-def profile(request):
-    return render(request, 'CivicConnect/profile.html')
-
-
 def logout_request(request):
     '''if request.user.is_authenticated:
         try:
@@ -122,6 +118,8 @@ def representatives(request):
                                                                  'local_representatives': local_reps,
                                                                  'valid_address': valid_address})
 
+
+@login_required
 def contactrepresentative(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -146,6 +144,7 @@ def contactrepresentative(request):
                                                                        'photo': photo})
 
 
+@login_required
 def templatesubmission(request):
     if request.method == 'POST':
         topic = request.POST.get('topic')
@@ -154,12 +153,13 @@ def templatesubmission(request):
         approved = False #request.POST.get('approved')
         submission_obj = TemplateSubmission(topic=topic, template=template, approved=approved)
         submission_obj.save()
-        return redirect('CivicConnect:template')
+        return redirect('CivicConnect:templates')
     #t = TemplateSubmission.objects.all()
     #t = TemplateSubmission.objects.filter(approved=True)
     return render(request, 'CivicConnect/templatesubmission.html',)#{'template': t})
 
 
+@login_required
 def templates(request):
        #temps = TemplateSubmission.objects.all()
        temps = TemplateSubmission.objects.filter(approved=True)
