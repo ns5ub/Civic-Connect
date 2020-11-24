@@ -30,6 +30,8 @@ def index(request):
     return render(request, 'CivicConnect/index.html')
 
 def about(request):
+    if not request.user.is_authenticated:
+        return redirect("CivicConnect:home")
     return render(request, 'CivicConnect/about.html')
 
 
