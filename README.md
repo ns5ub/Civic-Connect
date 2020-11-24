@@ -1,6 +1,6 @@
-#Team 1-15 Civic Connect CS 3240#
+# Team 1-15 Civic Connect CS 3240
 
-##Team Information##
+## Team Information
 
 **Team Number:** 1-15
 **Team Name:** Bears
@@ -9,14 +9,14 @@
 **Testing Manager:** Susan Le (sl3ub)
 **DevOps Manager:** Brooks Eason (bwe3bx)
 
-##General Information:##
+## General Information:
 
 This implementation of Civic Connect aims to help make the prospect of contacting your representatives a little bit less daunting. It allows users to access contact information about their represenatives based on their address and browse a set of community sourced templates with all the information they need to contact them.
 
 Visit us here at: https://civic-connect-bears.herokuapp.com  
 
 
-##A How To?##
+## How To?
 
 1. Log in with your google account. This will generate a default profile for you. 
 2. Navigate to My Profile, and Edit Profile in the navigation bar at the top. Fill out the information, most notably, the address. Include the streetname, city, and state if possible.
