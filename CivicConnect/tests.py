@@ -224,3 +224,24 @@ class MyHomeTest(TestCase):
         response = self.client.get(reverse('CivicConnect:home'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'CivicConnect/home.html')
+
+
+class MyAboutTest(TestCase):
+    @classmethod
+    def setUpTestData(self):
+        user = User.objects.create_user(username="testuser1")
+        user.set_password('testuser1pass')
+        user.save()
+        p = User.objects.last().profile
+        TemplateSubmission.objects.create(author=p, topic="Test Case", template="Test case template text",
+                                          date_posted=datetime.date.today())
+
+    def test_redirect_to_home_if_not_logged_in(self):
+        response = self.client.get(reverse('CivicConnect:about'))
+        self.assertRedirects(response, '/CivicConnect/')
+
+    def test_uses_correct_template(self):
+        login = self.client.login(username='testuser1', password='testuser1pass')
+        response = self.client.get(reverse('CivicConnect:about'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'CivicConnect/about.html')
