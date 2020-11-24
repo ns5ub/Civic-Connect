@@ -1,5 +1,6 @@
 import datetime
 from django.test import TestCase
+from django.urls import reverse
 from django.utils import timezone
 from CivicConnect.models import *
 
@@ -13,46 +14,88 @@ class DummyTestCase(TestCase):
         self.assertEqual(1, 1)
 
 
-class YourTestClass(TestCase):
+class RepresentativesPageTest(TestCase):
     @classmethod
-    def setUpTestData(cls):
-        print("setUpTestData: Run once to set up non-modified data for all class methods.")
-        pass
-
-    def setUp(self):
-        print("setUp: Run once for every test method to setup clean data.")
-        pass
-
-    def test_false_is_false(self):
-        print("Method: test_false_is_false.")
-        self.assertFalse(False)
-
-    def test_one_plus_one_equals_two(self):
-        print("Method: test_one_plus_one_equals_two.")
-        self.assertEqual(1 + 1, 2)
-
-class ProfileTest(TestCase):
-    @classmethod
-    def setUpTestData(cls):
-        Profile.objects.create(user)
-
-
-class TemplateTest(TestCase):
-    @classmethod
-    def setUpTestData(cls):
-        User.objects.create_user(username="test")
+    def setUpTestData(self):
+        user = User.objects.create_user(username="testuser1")
+        user.set_password('testuser1pass')
+        user.save()
         p = User.objects.last().profile
         TemplateSubmission.objects.create(author=p, topic="Test Case", template="Test case template text",
                                           date_posted=datetime.date.today())
 
-    def test_topic_equal(self):
-        template = TemplateSubmission.objects.get(id=1)
-        field_label = template._meta.get_field('topic').verbose_name
-        self.assertEqual(field_label, 'topic')
+    def test_redirect_if_not_logged_in(self):
+        response = self.client.get(reverse('CivicConnect:representatives'))
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response.url.startswith('/accounts/login/'))
 
-    def test_topic_ne(self):
-        template = TemplateSubmission.objects.get(id=1)
-        field_label = template._meta.get_field('topic').verbose_name
-        self.assertNotEqual(field_label, 'template')
+    def test_uses_correct_template(self):
+        login = self.client.login(username='testuser1', password='testuser1pass')
+        response = self.client.get(reverse('CivicConnect:representatives'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'CivicConnect/representatives.html')
 
 
+class MyTemplatesTest(TestCase):
+    @classmethod
+    def setUpTestData(self):
+        user = User.objects.create_user(username="testuser1")
+        user.set_password('testuser1pass')
+        user.save()
+        p = User.objects.last().profile
+        TemplateSubmission.objects.create(author=p, topic="Test Case", template="Test case template text",
+                                          date_posted=datetime.date.today())
+
+    def test_redirect_if_not_logged_in(self):
+        response = self.client.get(reverse('CivicConnect:mytemplates'))
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response.url.startswith('/accounts/login/'))
+
+    def test_uses_correct_template(self):
+        login = self.client.login(username='testuser1', password='testuser1pass')
+        response = self.client.get(reverse('CivicConnect:mytemplates'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'CivicConnect/mytemplates.html')
+
+
+
+class MyIndexTest(TestCase):
+    @classmethod
+    def setUpTestData(self):
+        user = User.objects.create_user(username="testuser1")
+        user.set_password('testuser1pass')
+        user.save()
+        p = User.objects.last().profile
+        TemplateSubmission.objects.create(author=p, topic="Test Case", template="Test case template text",
+                                          date_posted=datetime.date.today())
+
+    def test_redirect_to_home_if_not_logged_in(self):
+        response = self.client.get(reverse('CivicConnect:index'))
+        self.assertRedirects(response, '/CivicConnect/')
+
+    def test_uses_correct_template(self):
+        login = self.client.login(username='testuser1', password='testuser1pass')
+        response = self.client.get(reverse('CivicConnect:index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'CivicConnect/index.html')
+
+
+class MyHomeTest(TestCase):
+    @classmethod
+    def setUpTestData(self):
+        user = User.objects.create_user(username="testuser1")
+        user.set_password('testuser1pass')
+        user.save()
+        p = User.objects.last().profile
+        TemplateSubmission.objects.create(author=p, topic="Test Case", template="Test case template text",
+                                          date_posted=datetime.date.today())
+
+    def test_redirect_to_index_if_logged_in(self):
+        login = self.client.login(username='testuser1', password='testuser1pass')
+        response = self.client.get(reverse('CivicConnect:home'))
+        self.assertRedirects(response, '/CivicConnect/index/')
+
+    def test_uses_correct_template(self):
+        response = self.client.get(reverse('CivicConnect:home'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'CivicConnect/home.html')
