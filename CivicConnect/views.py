@@ -42,7 +42,8 @@ def logout_request(request):
 
 @login_required
 def profile(request):
-    return render(request, 'CivicConnect/profile.html')
+    return render(request, 'CivicConnect/profile.html', {'interests': request.user.profile.interests.all(),
+                                                         })
 
 
 @login_required

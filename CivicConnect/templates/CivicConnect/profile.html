@@ -98,10 +98,18 @@ Profile
             <hr>
             <div class="row">
                 <div class="col-sm-3">
-                    <h6 class="mb-0">Interest</h6>
+                    <h6 class="mb-0">Interests</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                    <p>{{ user.profile.interests }}</p>
+                    <p>
+                        <ul>
+                            {% for i in interests %}
+                                <li>
+                                    {{ i }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </p>
                 </div>
             </div>
         </div>
