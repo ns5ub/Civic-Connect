@@ -19,10 +19,14 @@ from CivicConnect.models import Profile, TemplateSubmission
 
 
 def home(request):
+    if request.user.is_authenticated:
+        return redirect("CivicConnect:index")
     return render(request, 'CivicConnect/home.html')
 
 
 def index(request):
+    if not request.user.is_authenticated:
+        return redirect("CivicConnect:home")
     return render(request, 'CivicConnect/index.html')
 
 def about(request):
