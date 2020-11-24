@@ -19,6 +19,7 @@ class Profile(models.Model):
     bio = models.TextField(max_length=500, blank=True)
     address = models.CharField(max_length=100, blank=True)
     interests = models.ManyToManyField(Interest, default=[])
+
     def __str__(self):
         return self.user.username
 
