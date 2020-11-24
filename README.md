@@ -3,10 +3,15 @@
 ## Team Information
 
 **Team Number:** 1-15
+
 **Team Name:** Bears
+
 **Scrum Master:** Nikita Saxena (ns5ub)
+
 **Requirements Manager:** Tanay Bapat (tb6xr)
+
 **Testing Manager:** Susan Le (sl3ub)
+
 **DevOps Manager:** Brooks Eason (bwe3bx)
 
 ## General Information:
