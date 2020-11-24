@@ -35,48 +35,58 @@ class YourTestClass(TestCase):
 
 class ProfileTest(TestCase):
     @classmethod
-    def setUpTestData(self):
-        user = User.objects.create_user(username="testuser1")
-        user.set_password('testuser1pass')
+    def setUpTestData(cls):
+        print("setting up")
+        user = User.objects.create_user(username="test_user")
+        user.set_password("password11")
         user.save()
         p = User.objects.last().profile
-        p.bio = "test bio"
-        p.address = "dummy address that is super long :)"
+        p.bio = "bio"
+        p.address = "123 test st"
         p.save()
-        TemplateSubmission.objects.create(author=p, topic="Test Case", template="Test case template text",
-                                          date_posted=datetime.date.today())
+        print("setup complete")
 
-    def test_bio_equal(self):
-         prof = User.objects.last().profile
-         field_label = prof._meta.get_field('bio').verbose_name
-         self.assertEqual(field_label, 'bio')
-         self.assertEqual(prof.bio, "test bio")
-
-    def test_bio_ne(self):
-        prof = User.objects.last().profile
+    def test_bio_eq(self):
+        prof = Profile.objects.get(id=1)
         field_label = prof._meta.get_field('bio').verbose_name
-        self.assertNotEqual(field_label, 'address')
+        self.assertEqual(field_label, 'bio')
+        print("bio test complete")
 
-    def test_bio_max_length(self):
-        profile = User.objects.last().profile
-        max_length = profile._meta.get_field('bio').max_length
-        self.assertEqual(max_length, 500)
+    def test_eq_to_str(self):
+        prof = Profile.objects.get(id=1)
+        expected_name = "test_user"
+        self.assertEqual(expected_name, str(prof))
+        print("to_str complete")
 
-    def test_address_equal(self):
-        profile = User.objects.last().profile
-        field_label = profile._meta.get_field('address').verbose_name
+    def test_bio_str(self):
+        prof = Profile.objects.get(id=1)
+        b = prof.bio
+        e_b = "bio"
+        self.assertEqual(b, e_b)
+        print("bio str complete")
+
+    def test_address_eq(self):
+        prof = Profile.objects.get(id=1)
+        field_label = prof._meta.get_field('address').verbose_name
         self.assertEqual(field_label, 'address')
-        self.assertEqual(profile.address, "dummy address that is super long :)")
+        print("address eq complete")
 
-    def test_address_ne(self):
-        profile = User.objects.last().profile
-        field_label = profile._meta.get_field('address').verbose_name
-        self.assertNotEqual(field_label, 'bio')
+    def test_addy_eq_str(self):
+        prof = Profile.objects.get(id=1)
+        expected_addy = "123 test st"
+        real_addy = prof.address
+        self.assertEqual(expected_addy, real_addy)
+        print("address str complete")
 
-    def test_address_max_length(self):
-        profile = Profile.objects.get(id=1)
-        max_length = profile._meta.get_field('address').max_length
-        self.assertEqual(max_length, 100)
+    def test_prof_auto_update(self):
+        prof = Profile.objects.get(id=1)
+        prof.bio = "new bio"
+        prof.user.save()
+        self.assertEqual("new bio", prof.bio)
+        self.assertEqual("123 test st", prof.address)
+        print("profile auto update complete")
+
+
 
 
 class TemplateTest(TestCase):
