@@ -25,8 +25,8 @@ Visit us here at: https://civic-connect-bears.herokuapp.com
 
 1. Log in with your google account. This will generate a default profile for you. 
 2. Navigate to My Profile, and Edit Profile in the navigation bar at the top. Fill out the information, most notably, the address. Include the streetname, city, and state if possible.
-3. Find your representatives contact information! Click "Find Representatives" in the navigation bar at the top. It should load information about your Federal, Regional, and Local representatives if the Google Civic API has access to them. Click around to see their contact information. If not, try editing your address in your profile to gain more information.
-4. To access the available templates click "Contact Templates." This will display all of the user generated templates that have been approved by the site admin. 
+3. Find your representatives contact information! Click "Representatives" in the navigation bar at the top. It should load information about your Federal, Regional, and Local representatives if the Google Civic API has access to them. Click though each set of representatives to see their contact information. If not, the program will display an error message and prompt you to try editing your address in your profile to gain more information.
+4. To access the available templates click "Templates." This will display all of the user generated templates that have been approved by the site admin. You are also able to search for templates using a text search.
 5. On this page you are able to access a link to submit your own template as well! Once you do so, it goes out to the admin team to be approved for viewing. You may click the "Your Profile" dropdown and view "Your Templates" to see the status of each template! 
 
 
