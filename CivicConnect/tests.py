@@ -1,4 +1,7 @@
+import datetime
 from django.test import TestCase
+from django.utils import timezone
+from CivicConnect.models import *
 
 # Create your tests here.
 
@@ -32,4 +35,24 @@ class ProfileTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         Profile.objects.create(user)
+
+
+class TemplateTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        User.objects.create_user(username="test")
+        p = User.objects.last().profile
+        TemplateSubmission.objects.create(author=p, topic="Test Case", template="Test case template text",
+                                          date_posted=datetime.date.today())
+
+    def test_topic_equal(self):
+        template = TemplateSubmission.objects.get(id=1)
+        field_label = template._meta.get_field('topic').verbose_name
+        self.assertEqual(field_label, 'topic')
+
+    def test_topic_ne(self):
+        template = TemplateSubmission.objects.get(id=1)
+        field_label = template._meta.get_field('topic').verbose_name
+        self.assertNotEqual(field_label, 'template')
+
 
