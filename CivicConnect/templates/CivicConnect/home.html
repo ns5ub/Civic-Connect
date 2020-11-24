@@ -1,19 +1,39 @@
-{% extends 'CivicConnect/base.html' %}
-
 {% load bootstrap4 %}
 
-
-
 {% block content %}
-  {% load socialaccount %}
-  <br>
-  <h3 style="text-align:center;">Welcome to Civic Connect!</h3>
+{% load socialaccount %}
 
-    <body>
-        {% if user.is_authenticated %}
-          <p style="text-align:center;">You are already logged in as {{ user.username }} - Click around to get started!</p>
-        {% else %}
-          <p style="text-align:center;"> <a href="{% provider_login_url 'google' %}">Login with Google</a> to get started!</p>
-        {% endif %}
-    </body>
+<html lang="en">
+<head>
+    <title>Ad Populum</title>
+
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+    <link rel="stylesheet" href="/static/styles/index.css">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+
+</head>
+
+<body>
+
+<div class="container">
+    <div class="left">
+        <div class="left-align">
+            <img src="/static/images/logo.png" width=300px>
+            <h2 class="tab">Civic Connect</h2>
+        </div>
+    </div>
+    <div class="right">
+        <div class="left-align">
+            <h2>Contact your representatives today!</h2>
+            <div class="btn-content" align="center">
+                <a href="{% provider_login_url 'google' %}">
+                    <img src="/static/images/google_btn.png" width="200px">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+</body>
 {% endblock %}
+</html>

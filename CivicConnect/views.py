@@ -25,6 +25,9 @@ def home(request):
 def index(request):
     return render(request, 'CivicConnect/index.html')
 
+def about(request):
+    return render(request, 'CivicConnect/about.html')
+
 
 def logout_request(request):
     '''if request.user.is_authenticated:
@@ -34,7 +37,6 @@ def logout_request(request):
             profile = Profile(user=request.user)
             profile.save()'''
     logout(request)
-    messages.info(request, "Logged out successfully!")
     return redirect("CivicConnect:home")
 
 

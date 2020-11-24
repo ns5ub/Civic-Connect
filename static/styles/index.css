@@ -1,0 +1,58 @@
+* {
+    margin: 0%;
+    padding: 0%;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 100;
+}
+
+/* GENERAL BG AND TEXT */
+.container {
+    height: 100vh;
+    display: flex;
+}
+
+.left, .right {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    flex-grow: 1;
+    font-size: small;
+}
+
+.left {
+    background-color: white;
+    color: black;
+}
+
+.right {
+    background-color: lightgrey;
+    color: black;
+}
+
+.left-align {
+    text-align: left;
+}
+
+/* MOBILE SUPPORT */
+@media screen and (max-width: 600px) {
+    .container {
+        display: block;
+    }
+    .left, .right {
+        height: 50vh;
+    }
+}
+
+@media screen and (max-height: 300px) {
+    .left {
+        display: none;
+    }
+    .right {
+        height: 100vh;
+    }
+}
+

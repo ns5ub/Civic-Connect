@@ -4,11 +4,28 @@
 
 {% load bootstrap4 %}
 
+{% block title %}
+My Templates
+{% endblock %}
+
 {% block content %}
   {% load socialaccount %}
+<head>
+    <style>
+        .header {
+            padding: 40px;
+            text-align: center;
+            background: #1abc9c;
+            color: white;
+            font-size: 30px;
+        }
+    </style>
+</head>
     <br>
     {% if user.is_authenticated %}
-        <h1 style="text-align:center;">Your Templates: {{ user.username }}</h1>
+        <div class="header">
+            <h1 style="text-align:center;">{{ user.first_name }}'s Templates</h1>
+        </div>
         <div id="accordion" class="p-5">
 	        {% for t in template %}
 		        <div class="card text-center">
@@ -39,7 +56,5 @@
           <a href="{% provider_login_url 'google' %}">Login with Google</a>
         </div>
     {% endif %}
-
-
 
 {% endblock %}

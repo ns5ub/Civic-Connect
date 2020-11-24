@@ -52,12 +52,16 @@ class ProfileForm(forms.ModelForm):
         self.helper.form_tag = False
 
 
+
+
+
 class CreateProfile(UserCreationForm):
 
     #username = forms.CharField(max_length=25)
 
     """ Interest selection """
     user_interests = forms.MultipleChoiceField(choices=interests, required=True)
+
 
     """ Date of birth """
     dob = forms.DateField(required=False)

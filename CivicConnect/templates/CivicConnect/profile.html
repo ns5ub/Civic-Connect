@@ -9,16 +9,106 @@ Profile
 {% block content %}
   {% load socialaccount %}
     {% if user.is_authenticated %}
-    <br>
+
+<head>
+<style>
+    .header {
+        padding: 40px;
+        text-align: center;
+        background: #1abc9c;
+        color: white;
+        font-size: 30px;
+    }
+    .btn {
+        border: none;
+        background-color: inherit;
+        padding: 14px 28px;
+        font-size: 20px;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    /* On mouse-over */
+    .btn:hover {background: #eee;}
+
+    .success {color: green;}
+    .info {color: dodgerblue;}
+    .warning {color: orange;}
+    .danger {color: red;}
+    .default {color: black;}
+</style>
+</head>
+
+<body>
+<div class="header">
     <h1 style="text-align:center;">Profile: {{ user.username }}</h1>
-    <div style="text-align:center;">
-        <p style="text-align:center;">{{ user.first_name }} {{ user.last_name }}</p>
-        <p style="text-align:center;">{{ user.email }}</p>
-        <p style="text-align:center;">{{ user.profile.bio }}</p>
-        <p style="text-align:center;">{{ user.profile.address }}</p>
-        <p style="text-align:center;">Interests: display here</p>
-        <a href="{% url 'CivicConnect:edit_profile' %}">Edit Profile!</a>
+</div>
+
+<hr style="width:90%;text-align:center">
+<p style="text-align:center;"> <a href="{% url 'CivicConnect:edit_profile' %}"><button class="btn default">Edit Profile</button></a></p>
+<hr style="width:90%;text-align:center">
+
+<div class="col-md-8 mx-auto">
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0">Username</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    <p>{{ user.username }}</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0">Full Name</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    <p>{{ user.first_name }} {{ user.last_name }}</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0">Email</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    <p>{{ user.email }}</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0">Address</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    <p>{{ user.profile.address }}</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0">Bio</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    <p>{{ user.profile.bio }}</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6 class="mb-0">Interest</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    <p>{{ user.profile.interests }}</p>
+                </div>
+            </div>
+        </div>
     </div>
+    <br>
+    <br>
+</div>
     {% else %}
       <div style="text-align:center;">
         <a href="{% provider_login_url 'google' %}">Login with Google</a>
