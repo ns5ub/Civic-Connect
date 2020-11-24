@@ -8,21 +8,33 @@ Create a Template!
 {% endblock %}
 
 {% block content %}
-<div class="head">
-	<div class="text-center">
-		<h1 class="text-center"><small> Submit your Template Here:</small></h1>
-		<p> Once you submit, an admin must approve your template before its visible! </p>
-	</div>
-</div>
+<head>
+	<style>
+		.header {
+			padding: 40px;
+			text-align: center;
+			background: #1abc9c;
+			color: white;
+			font-size: 30px;
+		}
+	</style>
+</head>
 
+<body>
+<div class="header">
+	<h1>Submit your Template Here:</h1>
+	<p>Once you submit, an admin must approve your template before its visible!</p>
+</div>
+<br>
 
 <div class="body" style="text-align:center; margin-left:250px; margin-right:250px;">
 	<form method="post">
 		{% csrf_token %}
 		{% crispy template_form %}
-        {% buttons submit="Submit" reset="Reset" %}{% endbuttons %}
+        {% buttons reset="Reset" submit="Submit" %}{% endbuttons %}
 	</form>
 	{{ template_form.media }}
 </div>
-
+<br>
+</body>
 {% endblock %}

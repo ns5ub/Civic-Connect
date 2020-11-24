@@ -1,0 +1,89 @@
+{% extends 'CivicConnect/base.html' %}
+
+{% load bootstrap4 %}
+
+{% block title %}
+About
+{% endblock %}
+
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/styles/about.css">
+    <title>Meet the Team</title>
+
+    <style>
+        .header {
+            padding: 40px;
+            text-align: center;
+            background: #1abc9c;
+            color: white;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>Meet the Team</h1>
+</div>
+<br>
+<div class="row">
+    <div class="column">
+        <div class="card">
+            <img src="/static/images/unknown.jpg" alt="Nikita" style="width:100%">
+            <div class="container">
+                <h2>Nikita Saxena</h2>
+                <p class="title">Scrum Master</p>
+                <p>University of Virginia - Computer Science</p>
+                <p>ns5ub@virginia.edu</p>
+                <p><a href="https://github.com/ns5ub"><button class="button" href="">GitHub</button></a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card">
+            <img src="/static/images/tanay.jpg" alt="Tanay" style="width:100%">
+            <div class="container">
+                <h2>Tanay Bapat</h2>
+                <p class="title">Requirements Manager</p>
+                <p>University of Virginia - Computer Science</p>
+                <p>tb6xr@virginia.edu</p>
+                <p><a href="https://www.linkedin.com/in/tanay-bapat-473233179/"><button class="button">LinkedIn</button></a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card">
+            <img src="/static/images/susan.jpg" alt="Susan" style="width:100%">
+            <div class="container">
+                <h2>Susan Le</h2>
+                <p class="title">Testing Manager</p>
+                <p>University of Virginia - Computer Science</p>
+                <p>sl3ub@virginia.edu</p>
+                <p><a href="https://www.linkedin.com/in/susan-le/"><button class="button">LinkedIn</button></a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card">
+            <img src="/static/images/unknown.jpg" alt="Brooks" style="width:100%">
+            <div class="container">
+                <h2>Brooks Eason</h2>
+                <p class="title">DevOps Manager</p>
+                <p>University of Virginia - Computer Science</p>
+                <p>bwe3bx@virginia.edu</p>
+                <p><a href="https://github.com/1beason"><button class="button">GitHub</button></a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+</body>
+{% endblock %}
+</html>

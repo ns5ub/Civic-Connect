@@ -1,6 +1,11 @@
 {% extends 'CivicConnect/base.html' %}
 
 {% load bootstrap4 %}
+
+{% block title %}
+Representatives
+{% endblock %}
+
 {% load index %}
 
 {% block content %}
@@ -8,10 +13,23 @@
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+        <style>
+            .header {
+                padding: 40px;
+                text-align: center;
+                background: #1abc9c;
+                color: white;
+                font-size: 30px;
+                p: 10px
+            }
+        </style>
     </head>
     <body>
-        <br>
-        <h1 style="text-align:center;"> Your Representatives: </h1>
+    <div class="header">
+        <h1> Your Representatives: </h1>
+        <p>{{ user.profile.address }}</p>
+        <p><a href="{% url 'CivicConnect:edit_profile' %}">Edit Address</a></p>
+    </div>
         {% if valid_address %}
             <div id="accordion" class="p-5">
                 <div class="card">

@@ -6,14 +6,31 @@
 {% load bootstrap4 %}
 
 {% block title %}
-Profile Settings
+Edit Profile
 {% endblock %}
 
 {% block content %}
   {% load socialaccount %}
     <br>
     {% if user.is_authenticated %}
-        <h1 style="text-align:center;">Edit Profile: {{ user.username }}</h1>
+
+<head>
+    <style>
+        .header {
+            padding: 40px;
+            text-align: center;
+            background: #1abc9c;
+            color: white;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<div class="header">
+    <h1 style="text-align:center;">Edit Profile: {{ user.first_name }}</h1>
+</div>
+<br>
+
         <div style="text-align:center; margin-right:300px; margin-left:300px; align:center;">
             <form method="post">
                 {% csrf_token %}
@@ -24,10 +41,9 @@ Profile Settings
         </div>
     {% else %}
         <div style="text-align:center;">
-          <a href="{% provider_login_url 'google' %}">Login with Google</a>
+          <a href="{% url 'CivicConnect:representatives' %}">Login with Google</a>
         </div>
     {% endif %}
-
-
-
+<br>
+<br>
 {% endblock %}

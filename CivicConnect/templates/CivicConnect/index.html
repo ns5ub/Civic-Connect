@@ -4,7 +4,7 @@
 
 {% block title %}
 
-Welcome to Civic Connect
+Welcome
 
 {% endblock %}
 
@@ -12,10 +12,11 @@ Welcome to Civic Connect
 
 <style>
     .column {
-        float: left;
-        width: 33.33%;
-        padding: 10px;
-        height: 150px;
+        margin-left: auto;
+        margin-right:auto;
+        width: 33%;
+        padding: 20px;
+        height: 300px;
     }
 
     /* Clear floats after the columns */
@@ -24,29 +25,62 @@ Welcome to Civic Connect
         display: table;
         clear: both;
     }
+
+    .jumbotron {
+        background: #1abc9c;
+        color: white;
+    }
+
+    .btn {
+        border: white;
+        background-color: white;
+        padding: 14px 28px;
+        font-size: 20px;
+        cursor: pointer;
+        display: inline-block;
+
+    }
+
+    /* On mouse-over */
+    .btn:hover {background: #eee;}
+
+    .success {color: green;}
+    .info {color: dodgerblue;}
+    .warning {color: orange;}
+    .danger {color: red;}
+    .default {color: black;}
 </style>
 
 <div class="jumbotron">
-    <h1>Welcome to Ad Populum!</h1>
-    <h3 style="text-align:center;">Civic Connect! An easier way to connect to your representatives</h3>
-    <p style="text-align:center;">Access a list of representatives based on your profile's address and use our list of user submitted templates to contact them.</p>
+    <h1 style="text-align:center;">Welcome to Ad Populum, {{ user.first_name }}!</h1>
+    <h4 style="text-align:center;">An easier way to connect to your representatives <img src="/static/images/confetti.png" style="width:30px" alt="team"></h4>
 </div>
 
 <div class="row">
-    <div class="column" style="background-color:#aaa;">
-        <h2>Meet the team</h2>
-        <img src="images/team.png">
-        <p>Some text..</p>
+    <div class="column" a href="{% url 'CivicConnect:templatesubmission' %}" style="background-color:#aaa;">
+        <h2>Meet the team! <img src="/static/images/teams.png" style="width:30px" alt="team"></h2>
+        <br>
+        <p>Get to know the creators!</p>
+        <p> <a href="{% url 'CivicConnect:about' %}"><button class="btn default">Learn More</button></a></p>
+
     </div>
     <div class="column" style="background-color:#bbb;">
-        <h2>Need to find your representative?</h2>
-        <p>Some text..</p>
+        <h2>Need to find your representative? <img src="/static/images/star.png" style="width:30px" alt="star"></h2>
+        <br>
+        <p>Access a list based on your profile's address!</p>
+        <p> <a href="{% url 'CivicConnect:representatives' %}"><button class="btn default">Learn More</button></a></p>
+
     </div>
     <div class="column" style="background-color:#ccc;">
-        <h2>Looking for the perfect template?</h2>
-        <p>Some text..</p>
+        <h2>Looking for the perfect template? <img src="/static/images/contract.png" style="width:30px" alt="template"></h2>
+        <br>
+        <p>Use our list of user submitted templates to contact them!</p>
+        <p> <a href="{% url 'CivicConnect:templates' %}"><button class="btn default">Learn More</button></a></p>
+
     </div>
 </div>
-
+<br>
+<br>
+<br>
 
 {% endblock %}

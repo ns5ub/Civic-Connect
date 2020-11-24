@@ -3,31 +3,68 @@
 {% load bootstrap4 %}
 {% load crispy_forms_tags %}
 
-{% block title %}Available Templates{% endblock %}
+{% block title %}Templates{% endblock %}
 
 {% block content %}
 
 <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+	<style>
+		.header {
+			padding: 40px;
+			text-align: center;
+			background: #1abc9c;
+			color: white;
+			font-size: 30px;
+		}
+
+		.subheader {
+			padding: 40px;
+			text-align: center;
+			background: grey;
+			color: white;
+			font-size: 30px;
+		}
+
+		.btn {
+			border: none;
+			background-color: inherit;
+			padding: 14px 28px;
+			font-size: 20px;
+			cursor: pointer;
+			display: inline-block;
+		}
+
+		/* On mouse-over */
+		.btn:hover {background: #eee;}
+
+		.success {color: green;}
+		.info {color: dodgerblue;}
+		.warning {color: orange;}
+		.danger {color: red;}
+		.default {color: black;}
+	</style>
 </head>
 
+<div class="header">
+	<p style="text-align:center;font-size:30px"><b>List of E-Mail Templates for Use</b></p>
+</div>
 
 <br>
-<p style="text-align:center;font-size:20px"> <a href="{% url 'CivicConnect:templatesubmission' %}">Submit your own template!</a> </p>
-<hr style="width:90%;text-align:center">
 
-
-<p style="text-align:center;font-size:30px"><b>List of E-Mail Templates for Use</b></p>
-<hr style="width:90%;text-align:center">
-
+<div class="subheader">
 <h2 style="text-align:center" > Template Search: </h2>
 <form method="GET" class="md-form mt-0 p-5">
-  <input class="form-control" type="text" name = "search" placeholder="Place Enter to Search" aria-label="Search">
+  <input class="form-control" type="text" name = "search" placeholder="Press Enter to Search" aria-label="Search">
 </form>
 <h4 style="text-align:center">Current Search: {{ search_text }}</h4>
+</div>
+
 <hr style="width:90%;text-align:center">
-<br>
+<p style="text-align:center;"> <a href="{% url 'CivicConnect:templatesubmission' %}"><button class="btn warning">Submit your own template!</button></a></p>
+<hr style="width:90%;text-align:center">
 
  <div id="accordion" class="p-5">
 	 {% for t in template %}

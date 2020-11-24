@@ -7,6 +7,7 @@ app_name = 'CivicConnect'
 urlpatterns = [
     path('', views.home, name='home'),
     path('index/', views.index, name='index'),
+    path('about/', views.about, name='about'),
     path("logout/", views.logout_request, name="logout"),
     path("profile/", views.profile, name="profile"),
     path("profile/mytemplates", views.mytemplates, name="mytemplates"),

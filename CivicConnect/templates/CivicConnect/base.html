@@ -7,98 +7,117 @@
 <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-</head>
-
-<script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
 
 <style>
-    .footer {
-        position: fixed;
-        left: 0;
-        bottom: 10px;
+    /*fixed footer: https://www.freecodecamp.org/news/how-to-keep-your-footer-where-it-belongs-59c6aa05c59c/ */
+    #page-container {
+        position: relative;
+        min-height: 100vh;
+    }
+
+    #content-wrap {
+        padding-bottom: 5rem;    /* Footer height */
+    }
+
+    #footer {
+        position: absolute;
+        bottom: 0;
         width: 100%;
+        height: 7rem;            /* Footer height */
         background-color: aliceblue;
         color: grey;
         text-align: center;
     }
+    body{
+        margin-bottom: 0px; /* Margin bottom by footer height */
+        box-sizing: border-box
+    }
+
+    html{
+        box-sizing: border-box;
+    }
+
     .navbar a
     {
         font-family: "Bodoni 72" !important;
         font-size: 20px;
+        color: black;
 
     }
-</style>
 
-<div class="footer">
-    <h3>Share us!</h3>
-    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-    <div class="fb-share-button"
-         data-href="https://www.your-domain.com/your-page.html"
-         data-layout="button_count">
+    div#twitter{
+        margin-top: -5px;
+    }
+    div#linkedIn{
+        margin-top: -2px;
+    }
+</style>
+</head>
+
+<body>
+
+<div id="page-container">
+    <div id="content-wrap">
+        <nav class="navbar navbar-expand-lg navbar-lt bg-lt">
+            <a class="navbar-brand" href="{% url 'CivicConnect:index' %}">
+                <img src="/static/images/logo.png" alt="" style="width:300px">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    {% if user.is_authenticated %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'CivicConnect:about' %}">About</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'CivicConnect:representatives' %}">Representatives</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'CivicConnect:templates' %}">Templates</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                    <ul class="navbar-nav ml-auto">
+                        <div class="nav-item dropdown">
+
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                My Profile
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{% url 'CivicConnect:profile' %}">View</a>
+                                <a class="dropdown-item" href="{% url 'CivicConnect:edit_profile' %}">Edit Profile</a>
+                                <a class="dropdown-item" href="{% url 'CivicConnect:mytemplates' %}">My Templates</a>
+                                <a class="dropdown-item" href="{% url 'CivicConnect:logout' %}">Logout</a>
+                            </div>
+                        </div>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+
+        {% block content %}(no content){% endblock %}
+
     </div>
-    <script src="https://platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
-    <script type="IN/Share" data-url="http://civic-connect-bears.herokuapp.com"></script>
+    <footer id="footer">
+        <p style="padding-top: 5px">Like what you see - share us!</p>
+        <div id="twitter">
+            <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+
+            <script src="https://platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
+            <script type="IN/Share" data-url="http://civic-connect-bears.herokuapp.com"></script>
+
+    </footer>
 </div>
 
-<nav class="navbar navbar-expand-lg navbar-lt bg-lt">
-    <a class="navbar-brand">Civic Connect
-        <img src="/static/images/logo.png" alt="">
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'CivicConnect:index' %}">home<span class="sr-only">(current)</span></a>
-            </li>
-            {% if user.is_authenticated %}
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'CivicConnect:index' %}">about</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'CivicConnect:representatives' %}">representatives</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'CivicConnect:templates' %}">templates</a>
-                </li>
-            {% endif %}
-        </ul>
-        <div class="nav-item  justify-content-end">
-
-            <a class="nav-item nav-link" href="{% url 'CivicConnect:profile' %}">profile</a>
-                <div class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        My Profile
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{% url 'CivicConnect:profile' %}">View</a>
-                        <a class="dropdown-item" href="{% url 'CivicConnect:edit_profile' %}">Edit Profile</a>
-                        <a class="dropdown-item" href="{% url 'CivicConnect:mytemplates' %}">My Templates</a>
-                    </div>
-                    >>>>>>> Master
-                </div>
-
-            {% if user.is_authenticated %}
-                <a class="nav-item nav-link" href="{% url 'CivicConnect:logout' %}">logout</a>
-            {% else %}
-                <a class="nav-item nav-link" href="{% provider_login_url 'google' %}">Login</a>
-            {% endif %}
-        </div>
-    </div>
-</nav>
-
-{% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
-<body>
-    {% block content %}(no content){% endblock %}
 </body>
 {% endblock %}
