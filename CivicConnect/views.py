@@ -167,9 +167,9 @@ def templates(request):
        search_text = "No Search Currently - All Displayed"
        if request.GET.get('search'):
            search_text = request.GET.get('search')
-           temps = temps.filter(    Q(topic__contains=search_text) |
-                                    Q(template__contains=search_text) |
-                                    Q(associated_interests__description__contains=search_text))
+           temps = temps.filter(    Q(topic__icontains=search_text) |
+                                    Q(template__icontains=search_text) |
+                                    Q(associated_interests__description__icontains=search_text))
 
        return render(request, 'CivicConnect/templates.html', {'template': temps,
                                                               'search_text': search_text})
